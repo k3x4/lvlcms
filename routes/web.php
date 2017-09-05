@@ -15,13 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('admin', 'AdminController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('admin/login', 'AdminController@login');
+Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function() {
+    Route::get('admin', ['middleware' => 'role:admin|editor|author', 'uses' => 'AdminController@index']);
+});
 
-Route::group(['middleware' => ['admin', 'role:admin|editor|author']], function() {
-    Route::get('admin', 'AdminController@index');
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('login', 'HomeController@index');
 });

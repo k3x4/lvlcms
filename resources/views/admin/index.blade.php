@@ -4,7 +4,7 @@
 
 @section('head')
 @parent
-<link rel="stylesheet" href="{{ asset("adminlte/dist/css/skins/skin-blue.min.css") }}">
+<link rel="stylesheet" href="{{ asset('adminlte/dist/css/skins/skin-blue.min.css') }}">
 @endsection
 
 @section('body_classes', 'hold-transition skin-blue sidebar-mini')
@@ -101,5 +101,5 @@
 @section('footer_scripts')
 @parent
 <!-- AdminLTE App -->
-<script src="{{ asset("adminlte/dist/js/app.min.js") }}"></script>
+<script src="{{ asset('adminlte/dist/js/app.min.js') }}"></script>
 @endsection
