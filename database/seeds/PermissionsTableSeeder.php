@@ -33,24 +33,24 @@ class PermissionsTableSeeder extends Seeder {
                 'description' => 'Delete Role'
             ],
             [
-                'name' => 'content-read',
-                'display_name' => 'Content listing',
-                'description' => 'See only listing of content'
+                'name' => 'node-read',
+                'display_name' => 'Node listing',
+                'description' => 'See only listing of nodes'
             ],
             [
-                'name' => 'content-create',
-                'display_name' => 'Create content',
-                'description' => 'Create new content'
+                'name' => 'node-create',
+                'display_name' => 'Create node',
+                'description' => 'Create new node'
             ],
             [
-                'name' => 'content-edit',
-                'display_name' => 'Edit content',
-                'description' => 'Edit content'
+                'name' => 'node-edit',
+                'display_name' => 'Edit node',
+                'description' => 'Edit node'
             ],
             [
-                'name' => 'content-delete',
-                'display_name' => 'Delete content',
-                'description' => 'Delete content'
+                'name' => 'node-delete',
+                'display_name' => 'Delete node',
+                'description' => 'Delete node'
             ]
         ];
         
