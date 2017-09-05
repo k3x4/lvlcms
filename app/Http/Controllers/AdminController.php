@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 class AdminController extends Controller {
 
     public function index() {
+        
         $data['tasks'] = [
             [
                 'name' => 'Design New Dashboard',
@@ -36,6 +37,10 @@ class AdminController extends Controller {
             ]
         ];
         return view('admin.index')->with($data);
+    }
+    
+    public function login(){
+        return view('admin.login');
     }
 
 }

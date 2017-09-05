@@ -5,45 +5,40 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
 
-@include('admin.layout.partials.head')
-    
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
-<body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>@yield('title')</title>
 
-   @include('admin.layout.partials.header')
-  
-   @include('admin.layout.partials.sidebar')
+        @section('head')
 
-   @include('admin.layout.partials.content')
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Bootstrap 3.3.6 -->
+        <link rel="stylesheet" href="{{ asset("adminlte/bootstrap/css/bootstrap.min.css") }}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{ asset("adminlte/dist/css/AdminLTE.min.css") }}">
 
-   @include('admin.layout.partials.footer')
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
-   @include('admin.layout.partials.control_sidebar')
-   
-</div>
-<!-- ./wrapper -->
+        @show
 
-@include('admin.layout.partials.footer_scripts')
+    </head>
 
-</body>
+    <body class="@yield('body_classes')">
+        
+        @yield('content')
+
+        @include('admin.layout.partials.footer_scripts')
+
+    </body>
 </html>
