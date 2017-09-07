@@ -22,7 +22,3 @@ Auth::routes();
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function() {
     Route::get('admin', ['middleware' => 'role:admin|editor|author', 'uses' => 'AdminController@index']);
 });
-
-Route::group(['middleware' => ['auth']], function() {
-    Route::get('login', 'HomeController@index');
-});

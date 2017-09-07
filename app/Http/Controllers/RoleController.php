@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Role;
 use App\Permission;
+use DB;
 
 class RoleController extends Controller {
 
@@ -15,8 +16,9 @@ class RoleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $roles = Role::all();
-        return view('admin.role.index', compact('roles'));
+        $roles = Role::orderBy('id','DESC')->paginate(5);
+        return view('admin.roles.index',compact('roles'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -25,8 +27,8 @@ class RoleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $permissions = Permission::all();
-        return view('admin.role.create', compact('permissions'));
+        $permission = Permission::get();
+        return view('admin.roles.create',compact('permission'));
     }
 
     /**
@@ -36,13 +38,25 @@ class RoleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $role = Role::create($request->except(['permission', '_token']));
+        $this->validate($request, [
+            'name' => 'required|unique:roles,name',
+            'display_name' => 'required',
+            'description' => 'required',
+            'permission' => 'required',
+        ]);
 
-        foreach ($request->permission as $key => $value) {
+        $role = new Role();
+        $role->name = $request->input('name');
+        $role->display_name = $request->input('display_name');
+        $role->description = $request->input('description');
+        $role->save();
+
+        foreach ($request->input('permission') as $key => $value) {
             $role->attachPermission($value);
         }
 
-        return redirect()->route('role.index')->withMessage('role created');
+        return redirect()->route('admin.roles.index')
+                        ->with('success','Role created successfully');
     }
 
     /**
@@ -52,7 +66,16 @@ class RoleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        //
+        $role = Role::find($id);
+        $rolePermissions = Permission::join(
+                "permission_role",
+                "permission_role.permission_id",
+                "=",
+                "permissions.id"
+                )->where("permission_role.role_id", $id)
+                 ->get();
+
+        return view('admin.roles.show', compact('role', 'rolePermissions'));
     }
 
     /**
@@ -63,10 +86,11 @@ class RoleController extends Controller {
      */
     public function edit($id) {
         $role = Role::find($id);
-        $permissions = Permission::all();
-        $role_permissions = $role->perms()->pluck('id', 'id')->toArray();
+        $permission = Permission::get();
+        $rolePermissions = DB::table("permission_role")->where("permission_role.role_id",$id)
+            ->lists('permission_role.permission_id','permission_role.permission_id');
 
-        return view('admin.role.edit', compact(['role', 'role_permissions', 'permissions']));
+        return view('admin.roles.edit',compact('role','permission','rolePermissions'));
     }
 
     /**
@@ -77,19 +101,26 @@ class RoleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
+        $this->validate($request, [
+            'display_name' => 'required',
+            'description' => 'required',
+            'permission' => 'required',
+        ]);
+
         $role = Role::find($id);
-        $role->name = $request->name;
-        $role->display_name = $request->display_name;
-        $role->description = $request->description;
+        $role->display_name = $request->input('display_name');
+        $role->description = $request->input('description');
         $role->save();
 
-        DB::table('permission_role')->where('role_id', $id)->delete();
+        DB::table("permission_role")->where("permission_role.role_id",$id)
+            ->delete();
 
-        foreach ($request->permission as $key => $value) {
+        foreach ($request->input('permission') as $key => $value) {
             $role->attachPermission($value);
         }
 
-        return redirect()->route('role.index')->withMessage('role Updated');
+        return redirect()->route('admin.roles.index')
+                         ->with('success','Role updated successfully');
     }
 
     /**
@@ -99,8 +130,9 @@ class RoleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        DB::table("roles")->where('id', $id)->delete();
-        return back()->withMessage('Role Deleted');
+        DB::table("roles")->where('id',$id)->delete();
+        return redirect()->route('admin.roles.index')
+                         ->with('success','Role deleted successfully');
     }
 
 }

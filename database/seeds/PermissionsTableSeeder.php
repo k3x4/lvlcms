@@ -12,6 +12,8 @@ class PermissionsTableSeeder extends Seeder {
      */
     public function run() {
         $permissions = [
+            
+            // ROLE PERMISSIONS
             [
                 'name' => 'role-read',
                 'display_name' => 'Display Role Listing',
@@ -32,26 +34,31 @@ class PermissionsTableSeeder extends Seeder {
                 'display_name' => 'Delete Role',
                 'description' => 'Delete Role'
             ],
+            
+            
+            // PRODUCT PERMISSIONS            
             [
-                'name' => 'node-read',
-                'display_name' => 'Node listing',
-                'description' => 'See only listing of nodes'
+                'name' => 'product-read',
+                'display_name' => 'Listing',
+                'description' => 'See only listing'
             ],
             [
-                'name' => 'node-create',
-                'display_name' => 'Create node',
-                'description' => 'Create new node'
+                'name' => 'product-create',
+                'display_name' => 'Create',
+                'description' => 'Create'
             ],
             [
-                'name' => 'node-edit',
-                'display_name' => 'Edit node',
-                'description' => 'Edit node'
+                'name' => 'product-edit',
+                'display_name' => 'Edit',
+                'description' => 'Edit'
             ],
             [
-                'name' => 'node-delete',
-                'display_name' => 'Delete node',
-                'description' => 'Delete node'
+                'name' => 'product-delete',
+                'display_name' => 'Delete',
+                'description' => 'Delete'
             ]
+            
+            
         ];
         
         foreach ($permissions as $permission) {
