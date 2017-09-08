@@ -1,8 +1,5 @@
 @extends('admin.layout.master')
 
-@section('page_title', 'Users')
-@section('page_description', 'Show')
-
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
