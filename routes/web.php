@@ -19,27 +19,147 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function() {
-    Route::get('admin', ['as' => 'admin.index', 'middleware' => 'role:admin|editor|author', 'uses' => 'AdminController@index']);
+Route::group([
+    'namespace' => 'Admin', 
+    'middleware' => ['auth']
+    ], function() {
+    
+    // ADMIN PANEL
+    Route::get('admin', [
+        'as' => 'admin.index', 
+        'middleware' => 'role:admin|editor|author', 
+        'uses' => 'AdminController@index'
+        ]);
+    
+    // USERS
+    Route::get('admin/users', [
+        'as' => 'admin.users.index', 
+        'uses' => 'UserController@index', 
+        'middleware' => ['permission:user-read|user-create|user-edit|user-delete']
+        ]);
+    
+    Route::get('admin/users/create', [
+        'as' => 'admin.users.create', 
+        'uses' => 'UserController@create', 
+        'middleware' => ['permission:user-create']
+        ]);
+    
+    Route::post('admin/users/create', [
+        'as' => 'admin.users.store', 
+        'uses' => 'UserController@store', 
+        'middleware' => ['permission:user-create']
+        ]);
+    
+    Route::get('admin/users/{id}', [
+        'as' => 'admin.users.show', 
+        'uses' => 'UserController@show',
+        'middleware' => ['permission:user-read']
+        ]);
+    
+    Route::get('admin/users/{id}/edit', [
+        'as' => 'admin.users.edit', 
+        'uses' => 'UserController@edit', 
+        'middleware' => ['permission:user-edit']
+        ]);
+    
+    Route::patch('admin/users/{id}', [
+        'as' => 'admin.users.update', 
+        'uses' => 'UserController@update', 
+        'middleware' => ['permission:user-edit']
+        ]);
+    
+    Route::delete('admin/users/{id}', [
+        'as' => 'admin.users.destroy', 
+        'uses' => 'UserController@destroy', 
+        'middleware' => ['permission:user-delete']
+        ]);
+    
+    
+    // ROLES
+    Route::get('admin/roles', [
+        'as' => 'admin.roles.index', 
+        'uses' => 'RoleController@index', 
+        'middleware' => ['permission:role-read|role-create|role-edit|role-delete']
+        ]);
+    
+    Route::get('admin/roles/create', [
+        'as' => 'admin.roles.create', 
+        'uses' => 'RoleController@create', 
+        'middleware' => ['permission:role-create']
+        ]);
+    
+    Route::post('admin/roles/create', [
+        'as' => 'admin.roles.store', 
+        'uses' => 'RoleController@store', 
+        'middleware' => ['permission:role-create']
+        ]);
+    
+    Route::get('admin/roles/{id}', [
+        'as' => 'admin.roles.show', 
+        'uses' => 'RoleController@show',
+        'middleware' => ['permission:role-read']
+        ]);
+    
+    Route::get('admin/roles/{id}/edit', [
+        'as' => 'admin.roles.edit', 
+        'uses' => 'RoleController@edit', 
+        'middleware' => ['permission:role-edit']
+        ]);
+    
+    Route::patch('admin/roles/{id}', [
+        'as' => 'admin.roles.update', 
+        'uses' => 'RoleController@update', 
+        'middleware' => ['permission:role-edit']
+        ]);
+    
+    Route::delete('admin/roles/{id}', [
+        'as' => 'admin.roles.destroy', 
+        'uses' => 'RoleController@destroy', 
+        'middleware' => ['permission:role-delete']
+        ]);
 
-    //Route::resource('admin.users','UserController');
-
-    /*
-    Route::get('roles', ['as' => 'roles.index', 'uses' => 'RoleController@index', 'middleware' => ['permission:role-list|role-create|role-edit|role-delete']]);
-    Route::get('roles/create', ['as' => 'roles.create', 'uses' => 'RoleController@create', 'middleware' => ['permission:role-create']]);
-    Route::post('roles/create', ['as' => 'roles.store', 'uses' => 'RoleController@store', 'middleware' => ['permission:role-create']]);
-    Route::get('roles/{id}', ['as' => 'roles.show', 'uses' => 'RoleController@show']);
-    Route::get('roles/{id}/edit', ['as' => 'roles.edit', 'uses' => 'RoleController@edit', 'middleware' => ['permission:role-edit']]);
-    Route::patch('roles/{id}', ['as' => 'roles.update', 'uses' => 'RoleController@update', 'middleware' => ['permission:role-edit']]);
-    Route::delete('roles/{id}', ['as' => 'roles.destroy', 'uses' => 'RoleController@destroy', 'middleware' => ['permission:role-delete']]);
-
-    Route::get('itemCRUD2', ['as' => 'itemCRUD2.index', 'uses' => 'ItemCRUD2Controller@index', 'middleware' => ['permission:item-list|item-create|item-edit|item-delete']]);
-    Route::get('itemCRUD2/create', ['as' => 'itemCRUD2.create', 'uses' => 'ItemCRUD2Controller@create', 'middleware' => ['permission:item-create']]);
-    Route::post('itemCRUD2/create', ['as' => 'itemCRUD2.store', 'uses' => 'ItemCRUD2Controller@store', 'middleware' => ['permission:item-create']]);
-    Route::get('itemCRUD2/{id}', ['as' => 'itemCRUD2.show', 'uses' => 'ItemCRUD2Controller@show']);
-    Route::get('itemCRUD2/{id}/edit', ['as' => 'itemCRUD2.edit', 'uses' => 'ItemCRUD2Controller@edit', 'middleware' => ['permission:item-edit']]);
-    Route::patch('itemCRUD2/{id}', ['as' => 'itemCRUD2.update', 'uses' => 'ItemCRUD2Controller@update', 'middleware' => ['permission:item-edit']]);
-    Route::delete('itemCRUD2/{id}', ['as' => 'itemCRUD2.destroy', 'uses' => 'ItemCRUD2Controller@destroy', 'middleware' => ['permission:item-delete']]);
-    */
+    
+    //PRODUCTS
+    Route::get('admin/products', [
+        'as' => 'admin.products.index', 
+        'uses' => 'ProductController@index', 
+        'middleware' => ['permission:item-read|item-create|item-edit|item-delete']
+        ]);
+    
+    Route::get('admin/products/create', [
+        'as' => 'admin.products.create', 
+        'uses' => 'ProductController@create', 
+        'middleware' => ['permission:item-create']
+        ]);
+    
+    Route::post('admin/products/create', [
+        'as' => 'admin.products.store', 
+        'uses' => 'ProductController@store', 
+        'middleware' => ['permission:item-create']
+        ]);
+    
+    Route::get('admin/products/{id}', [
+        'as' => 'admin.products.show', 
+        'uses' => 'ProductController@show',
+        'middleware' => ['permission:item-read']
+        ]);
+    
+    Route::get('admin/products/{id}/edit', [
+        'as' => 'admin.products.edit', 
+        'uses' => 'ProductController@edit', 
+        'middleware' => ['permission:item-edit']
+        ]);
+    
+    Route::patch('admin/products/{id}', [
+        'as' => 'admin.products.update', 
+        'uses' => 'ProductController@update', 
+        'middleware' => ['permission:item-edit']
+        ]);
+    
+    Route::delete('admin/products/{id}', [
+        'as' => 'admin.products.destroy', 
+        'uses' => 'ProductController@destroy', 
+        'middleware' => ['permission:item-delete']
+        ]);
     
 });

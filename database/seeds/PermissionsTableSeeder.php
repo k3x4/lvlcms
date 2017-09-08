@@ -13,11 +13,34 @@ class PermissionsTableSeeder extends Seeder {
     public function run() {
         $permissions = [
             
+            // USER PERMISSIONS
+            [
+                'name' => 'user-read',
+                'display_name' => 'Display Users',
+                'description' => 'Display Users'
+            ],
+            [
+                'name' => 'user-create',
+                'display_name' => 'Create User',
+                'description' => 'Create New User'
+            ],
+            [
+                'name' => 'user-edit',
+                'display_name' => 'Edit User',
+                'description' => 'Edit User'
+            ],
+            [
+                'name' => 'user-delete',
+                'display_name' => 'Delete User',
+                'description' => 'Delete User'
+            ],
+            
+            
             // ROLE PERMISSIONS
             [
                 'name' => 'role-read',
-                'display_name' => 'Display Role Listing',
-                'description' => 'See only Listing Of Role'
+                'display_name' => 'Display Roles',
+                'description' => 'Display Roles'
             ],
             [
                 'name' => 'role-create',
