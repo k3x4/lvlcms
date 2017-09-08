@@ -16,8 +16,8 @@ class RoleController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
+    public function index(Request $request) {
+        $roles = Role::orderBy('id','ASC')->paginate(5);
         return view('admin.roles.index',compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -89,7 +89,7 @@ class RoleController extends Controller {
         $role = Role::find($id);
         $permission = Permission::get();
         $rolePermissions = DB::table("permission_role")->where("permission_role.role_id",$id)
-            ->lists('permission_role.permission_id','permission_role.permission_id');
+            ->pluck('permission_role.permission_id','permission_role.permission_id');
 
         return view('admin.roles.edit',compact('role','permission','rolePermissions'));
     }
