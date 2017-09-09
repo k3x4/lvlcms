@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('admin.users.create') }}"> Create New User</a>
+            <a class="btn btn-success" href="{{ route('admin.users.create') }}"> New User</a>
         </div>
     </div>
 </div>

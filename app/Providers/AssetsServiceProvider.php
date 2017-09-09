@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class AdminLTEServiceProvider extends ServiceProvider
+class AssetsServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -13,6 +13,7 @@ class AdminLTEServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // ADMIN LTE
         $this->publishes([
             base_path('vendor') . '/almasaeed2010/adminlte/dist' => public_path('adminlte/dist'),
         ], 'public');
@@ -23,6 +24,21 @@ class AdminLTEServiceProvider extends ServiceProvider
         
         $this->publishes([
             base_path('vendor') . '/almasaeed2010/adminlte/plugins' => public_path('adminlte/plugins'),
+        ], 'public');
+        
+        // JQUERY
+        $this->publishes([
+            base_path('node_modules') . '/jquery/dist/jquery.min.js' => public_path('js/lib/jquery/jquery.min.js'),
+        ], 'public');
+        
+        // TINYMCE
+        $this->publishes([
+            base_path('node_modules') . '/tinymce' => public_path('js/lib/tinymce'),
+        ], 'public');
+        
+        // TINYMCE-LIGHT-SKIN
+        $this->publishes([
+            base_path('node_modules') . '/tinymce' => public_path('js/lib/tinymce'),
         ], 'public');
     }
 

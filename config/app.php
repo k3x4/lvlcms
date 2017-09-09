@@ -178,8 +178,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         
-        App\Providers\AdminLTEServiceProvider::class,
-        App\Providers\JqueryServiceProvider::class,
+        App\Providers\AssetsServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
     ],

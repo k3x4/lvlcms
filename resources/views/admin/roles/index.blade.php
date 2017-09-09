@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('admin.roles.create') }}"> Create New Role</a>
+            <a class="btn btn-success" href="{{ route('admin.roles.create') }}"> New Role</a>
         </div>
     </div>
 </div>

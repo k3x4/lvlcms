@@ -111,37 +111,37 @@ Route::group([
     Route::get('admin/products', [
         'as' => 'admin.products.index', 
         'uses' => 'ProductController@index', 
-        'middleware' => ['permission:item-read|item-create|item-edit|item-delete']
+        'middleware' => ['permission:product-read|product-create|product-edit|product-delete']
         ]);
     
     Route::get('admin/products/create', [
         'as' => 'admin.products.create', 
         'uses' => 'ProductController@create', 
-        'middleware' => ['permission:item-create']
+        'middleware' => ['permission:product-create']
         ]);
     
     Route::post('admin/products/create', [
         'as' => 'admin.products.store', 
         'uses' => 'ProductController@store', 
-        'middleware' => ['permission:item-create']
+        'middleware' => ['permission:product-create']
         ]);
     
     Route::get('admin/products/{id}/edit', [
         'as' => 'admin.products.edit', 
         'uses' => 'ProductController@edit', 
-        'middleware' => ['permission:item-edit']
+        'middleware' => ['permission:product-edit']
         ]);
     
     Route::patch('admin/products/{id}', [
         'as' => 'admin.products.update', 
         'uses' => 'ProductController@update', 
-        'middleware' => ['permission:item-edit']
+        'middleware' => ['permission:product-edit']
         ]);
     
     Route::delete('admin/products/{id}', [
         'as' => 'admin.products.destroy', 
         'uses' => 'ProductController@destroy', 
-        'middleware' => ['permission:item-delete']
+        'middleware' => ['permission:product-delete']
         ]);
     
 });
