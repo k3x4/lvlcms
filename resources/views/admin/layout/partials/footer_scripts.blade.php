@@ -7,4 +7,6 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('adminlte/dist/js/app.min.js') }}"></script>
 
+<script src="{{ asset('js/admin.js') }}"></script>
+
 @show

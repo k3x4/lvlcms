@@ -179,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         
         App\Providers\AdminLTEServiceProvider::class,
+        App\Providers\JqueryServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
     ],

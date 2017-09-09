@@ -40,7 +40,7 @@
                             @endpermission
                             @permission('role-delete')
                             {!! Form::open(['method' => 'DELETE','route' => ['admin.roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                            {!! Form::submit('Delete', ['class' => 'btn btn-danger', 'data-confirm' => 'Are you sure you want to delete?']) !!}
                             {!! Form::close() !!}
                             @endpermission
                         </td>

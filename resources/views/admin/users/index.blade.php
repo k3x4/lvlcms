@@ -45,7 +45,7 @@
                         <td>
                             <a class="btn btn-primary" href="{{ route('admin.users.edit',$user->id) }}">Edit</a>
                             {!! Form::open(['method' => 'DELETE','route' => ['admin.users.destroy', $user->id],'style'=>'display:inline']) !!}
-                            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                            {!! Form::submit('Delete', ['class' => 'btn btn-danger', 'data-confirm' => 'Are you sure you want to delete?']) !!}
                             {!! Form::close() !!}
                         </td>
                     </tr>
