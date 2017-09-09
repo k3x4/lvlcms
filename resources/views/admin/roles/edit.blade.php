@@ -20,20 +20,16 @@
 @endif
 
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12 margin-tb">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Create New Role</h3>
+                <h3 class="box-title">Edit Role <strong>{{ $role->display_name }}</strong></h3>
             </div>
-            {!! Form::open(array('route' => 'admin.roles.store','method'=>'POST')) !!}
+            {!! Form::model($role, ['method' => 'PATCH','route' => ['admin.roles.update', $role->id]]) !!}
             <div class="box-body">
                 <div class="form-group">
                     <strong>Name:</strong>
-                    {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
-                </div>
-                <div class="form-group">
-                    <strong>Display Name:</strong>
-                    {!! Form::text('display_name', null, array('placeholder' => 'Display Name','class' => 'form-control')) !!}
+                    {!! Form::text('display_name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
@@ -43,7 +39,7 @@
                     <strong>Permission:</strong>
                     <br/>
                     @foreach($permission as $value)
-                    <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
+                    <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
                         {{ $value->display_name }}</label>
                     <br/>
                     @endforeach

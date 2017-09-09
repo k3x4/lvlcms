@@ -62,23 +62,23 @@ class PermissionsTableSeeder extends Seeder {
             // PRODUCT PERMISSIONS            
             [
                 'name' => 'product-read',
-                'display_name' => 'Listing',
-                'description' => 'See only listing'
+                'display_name' => 'Display Products',
+                'description' => 'Display Products'
             ],
             [
                 'name' => 'product-create',
-                'display_name' => 'Create',
-                'description' => 'Create'
+                'display_name' => 'Create Product',
+                'description' => 'Create New Product'
             ],
             [
                 'name' => 'product-edit',
-                'display_name' => 'Edit',
-                'description' => 'Edit'
+                'display_name' => 'Edit Product',
+                'description' => 'Edit Product'
             ],
             [
                 'name' => 'product-delete',
-                'display_name' => 'Delete',
-                'description' => 'Delete'
+                'display_name' => 'Delete Product',
+                'description' => 'Delete Product'
             ]
             
             

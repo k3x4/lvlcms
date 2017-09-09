@@ -30,9 +30,9 @@
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
-            <li class="header">HEADER</li>
+            <!--<li class="header">HEADER</li>-->
             <!-- Optionally, you can add icons to the links -->
-            <li{{ bs_active('admin/users*') }}>
+            <li{{ bs_active(['admin/users*', 'admin/roles*']) }}>
                 <a href="#"><i class="fa fa-link"></i> <span>Users</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -41,6 +41,17 @@
                 <ul class="treeview-menu">
                     <li{{ bs_active('admin/users') }}><a href="{{ url('admin/users') }}">All users</a></li>
                     <li{{ bs_active('admin/users/create') }}><a href="{{ url('admin/users/create') }}">Create user</a></li>
+                    <li{{ bs_active('admin/roles*') }}>
+                        <a href="{{ url('admin/roles') }}"> <span>Roles</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li{{ bs_active('admin/roles') }}><a href="{{ url('admin/roles') }}">All roles</a></li>
+                            <li{{ bs_active('admin/roles/create') }}><a href="{{ url('admin/roles/create') }}">Create role</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
             <li><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Role;
 use App\Permission;
 use DB;
@@ -88,8 +87,8 @@ class RoleController extends Controller {
     public function edit($id) {
         $role = Role::find($id);
         $permission = Permission::get();
-        $rolePermissions = DB::table("permission_role")->where("permission_role.role_id",$id)
-            ->pluck('permission_role.permission_id','permission_role.permission_id');
+        $rolePermissions = DB::table("permission_role")->where("permission_role.role_id", $id)
+            ->pluck('permission_role.permission_id','permission_role.permission_id')->toArray();
 
         return view('admin.roles.edit',compact('role','permission','rolePermissions'));
     }
