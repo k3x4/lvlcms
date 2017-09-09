@@ -50,12 +50,6 @@ Route::group([
         'middleware' => ['permission:user-create']
         ]);
     
-    Route::get('admin/users/{id}', [
-        'as' => 'admin.users.show', 
-        'uses' => 'UserController@show',
-        'middleware' => ['permission:user-read']
-        ]);
-    
     Route::get('admin/users/{id}/edit', [
         'as' => 'admin.users.edit', 
         'uses' => 'UserController@edit', 
@@ -94,12 +88,6 @@ Route::group([
         'middleware' => ['permission:role-create']
         ]);
     
-    Route::get('admin/roles/{id}', [
-        'as' => 'admin.roles.show', 
-        'uses' => 'RoleController@show',
-        'middleware' => ['permission:role-read']
-        ]);
-    
     Route::get('admin/roles/{id}/edit', [
         'as' => 'admin.roles.edit', 
         'uses' => 'RoleController@edit', 
@@ -136,12 +124,6 @@ Route::group([
         'as' => 'admin.products.store', 
         'uses' => 'ProductController@store', 
         'middleware' => ['permission:item-create']
-        ]);
-    
-    Route::get('admin/products/{id}', [
-        'as' => 'admin.products.show', 
-        'uses' => 'ProductController@show',
-        'middleware' => ['permission:item-read']
         ]);
     
     Route::get('admin/products/{id}/edit', [
