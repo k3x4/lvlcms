@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            //$table->integer('media_id')->unsigned();
             $table->text('description')->nullable();
             $table->timestamps();
         });
