@@ -1,3 +1,5 @@
+require('./../talvbansal/media-manager/js/media-manager');
+
 $(document).ready(function () {
 
     /*** TINYMCE INIT ***/
