@@ -35,7 +35,7 @@
                     <media-modal v-if="showMediaManager" @media-modal-close="showMediaManager = false">
                         <media-manager
                             :is-modal="true"
-                            :selected-event-name="product-image"
+                            :selected-event-name="'product-image'"
                             @media-modal-close="showMediaManager = false"
                             >
                         </media-manager>
@@ -65,19 +65,22 @@
         el: '.media-manager',
         data: {
             showMediaManager: false,
+            selectedEventName: 'product-image'
         },
+        
         mounted(){
+            var vue_this = this;
             window.eventHub.$on('media-manager-selected-product-image', function (file) {
                 // Do something with the file info...
                 console.log(file.name);
                 console.log(file.mimeType);
                 console.log(file.relativePath);
                 console.log(file.webPath);
-
                 // Hide the Media Manager...
-                this.showMediaManager = false;
+                vue_this.showMediaManager = false;
             });
         }
+        
     });
 </script>
 @endsection
