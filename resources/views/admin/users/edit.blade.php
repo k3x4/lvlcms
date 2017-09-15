@@ -29,23 +29,23 @@
             <div class="box-body">
                 <div class="form-group">
                     <strong>Name:</strong>
-                    {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                    {!! Form::text('name', null, ['placeholder' => 'Name','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     <strong>Email:</strong>
-                    {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
+                    {!! Form::text('email', null, ['placeholder' => 'Email','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     <strong>Password:</strong>
-                    {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
+                    {!! Form::password('password', ['placeholder' => 'Password','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     <strong>Confirm Password:</strong>
-                    {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
+                    {!! Form::password('confirm-password', ['placeholder' => 'Confirm Password','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     <strong>Role:</strong>
-                    {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
+                    {!! Form::select('roles[]', $roles,$userRole, ['class' => 'form-control','multiple']) !!}
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>

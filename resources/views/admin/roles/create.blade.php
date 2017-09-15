@@ -25,25 +25,25 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Create New Role</h3>
             </div>
-            {!! Form::open(array('route' => 'admin.roles.store','method'=>'POST')) !!}
+            {!! Form::open(['route' => 'admin.roles.store','method'=>'POST']) !!}
             <div class="box-body">
                 <div class="form-group">
                     <strong>Name:</strong>
-                    {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                    {!! Form::text('name', null, ['placeholder' => 'Name','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     <strong>Display Name:</strong>
-                    {!! Form::text('display_name', null, array('placeholder' => 'Display Name','class' => 'form-control')) !!}
+                    {!! Form::text('display_name', null, ['placeholder' => 'Display Name','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
-                    {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control','style'=>'height:100px')) !!}
+                    {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control','style'=>'height:100px']) !!}
                 </div>
                 <div class="form-group">
                     <strong>Permission:</strong>
                     <br/>
                     @foreach($permission as $value)
-                    <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
+                    <label>{{ Form::checkbox('permission[]', $value->id, false, ['class' => 'name']) }}
                         {{ $value->display_name }}</label>
                     <br/>
                     @endforeach

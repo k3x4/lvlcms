@@ -29,7 +29,7 @@
             <div class="box-body">
                 <div class="form-group">
                     <strong>Title:</strong>
-                    {!! Form::text('title', null, array('placeholder' => 'Title','class' => 'form-control')) !!}
+                    {!! Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group media-manager">
                     <media-modal v-if="showMediaManager" @media-modal-close="showMediaManager = false">
@@ -41,13 +41,19 @@
                         </media-manager>
                     </media-modal>
 
+                    <div class="form-group" v-if="imageValue">
+                        <strong>Image:</strong><br />
+                        <img :src="imageValue" width="150" height="150" />
+                        <input type="hidden" name="image" :value="imageValue" >
+                    </div>
+                    
                     <button type="button" @click="showMediaManager = true">
                         Show Media Manager
                     </button>
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
-                    {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px')) !!}
+                    {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>
@@ -65,17 +71,19 @@
         el: '.media-manager',
         data: {
             showMediaManager: false,
-            selectedEventName: 'product-image'
+            selectedEventName: 'product-image',
+            imageValue: null
         },
         
         mounted(){
             var vue_this = this;
             window.eventHub.$on('media-manager-selected-product-image', function (file) {
                 // Do something with the file info...
-                console.log(file.name);
+                /*console.log(file.name);
                 console.log(file.mimeType);
                 console.log(file.relativePath);
-                console.log(file.webPath);
+                console.log(file.webPath);*/
+                vue_this.imageValue = file.relativePath;
                 // Hide the Media Manager...
                 vue_this.showMediaManager = false;
             });

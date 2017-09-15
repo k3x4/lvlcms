@@ -38,11 +38,16 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required',
-            'description' => 'required',
+            'title' => 'required'
         ]);
 
-        Product::create($request->all());
+        $pathToFile = imgPath($request->input('image'));
+        
+        Product::create($request->except('image'));
+        
+        if(imgPathValidate($pathToFile)){
+            Product::find(1)->addMedia($pathToFile)->toMediaCollection('images');
+        }
 
         return redirect()->route('admin.products.index')
                         ->with('success','Product created successfully');
@@ -82,11 +87,16 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'title' => 'required',
-            'description' => 'required',
+            'title' => 'required'
         ]);
 
-        Product::find($id)->update($request->all());
+        $pathToFile = imgPath($request->input('image'));
+        
+        Product::find($id)->update($request->except('image'));
+        
+        if(imgPathValidate($pathToFile)){
+            Product::find($id)->addMedia($pathToFile)->toMediaCollection('images');
+        }
 
         return redirect()->route('admin.products.index')
                         ->with('success','Product updated successfully');
