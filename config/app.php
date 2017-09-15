@@ -180,8 +180,6 @@ return [
         
         App\Providers\AssetsServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        
-        \TalvBansal\MediaManager\Providers\MediaManagerServiceProvider::class,
 
     ],
 

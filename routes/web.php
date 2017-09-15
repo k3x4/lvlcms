@@ -19,8 +19,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-\TalvBansal\MediaManager\Routes\MediaRoutes::get();
-
 Route::group([
     'namespace' => 'Admin', 
     'middleware' => ['auth']

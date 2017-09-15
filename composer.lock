@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8c958f574c027de5903d96527453342",
+    "content-hash": "6fcf317fb0d07a8045e4982607b89f84",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -45,61 +45,6 @@
                 "web"
             ],
             "time": "2017-01-08T21:03:57+00:00"
-        },
-        {
-            "name": "dflydev/apache-mime-types",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dflydev/dflydev-apache-mime-types.git",
-                "reference": "f30a57e59b7476e4c5270b6a0727d79c9c0eb861"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dflydev/dflydev-apache-mime-types/zipball/f30a57e59b7476e4c5270b6a0727d79c9c0eb861",
-                "reference": "f30a57e59b7476e4c5270b6a0727d79c9c0eb861",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3"
-            },
-            "require-dev": {
-                "twig/twig": "1.*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Dflydev\\ApacheMimeTypes": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dragonfly Development Inc.",
-                    "email": "info@dflydev.com",
-                    "homepage": "http://dflydev.com"
-                },
-                {
-                    "name": "Beau Simensen",
-                    "email": "beau@dflydev.com",
-                    "homepage": "http://beausimensen.com"
-                }
-            ],
-            "description": "Apache MIME Types",
-            "keywords": [
-                "apache",
-                "mime",
-                "mimetypes"
-            ],
-            "time": "2013-05-14T02:02:01+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -635,16 +580,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.3",
+            "version": "v5.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "779a98d3b2ebed2128db1a668dcc10a65c9b01be"
+                "reference": "d3e0493bead126cf7fb9a005c64e6b58a9190e51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/779a98d3b2ebed2128db1a668dcc10a65c9b01be",
-                "reference": "779a98d3b2ebed2128db1a668dcc10a65c9b01be",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/d3e0493bead126cf7fb9a005c64e6b58a9190e51",
+                "reference": "d3e0493bead126cf7fb9a005c64e6b58a9190e51",
                 "shasum": ""
             },
             "require": {
@@ -763,7 +708,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-09-07T13:50:21+00:00"
+            "time": "2017-09-13T13:36:29+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -2400,65 +2345,6 @@
                 "dump"
             ],
             "time": "2017-08-27T14:52:21+00:00"
-        },
-        {
-            "name": "talvbansal/media-manager",
-            "version": "v2.5.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/talvbansal/media-manager.git",
-                "reference": "8b03df08c684d360b64e21a17a456c039b17703b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/talvbansal/media-manager/zipball/8b03df08c684d360b64e21a17a456c039b17703b",
-                "reference": "8b03df08c684d360b64e21a17a456c039b17703b",
-                "shasum": ""
-            },
-            "require": {
-                "dflydev/apache-mime-types": "^1.0",
-                "php": ">=5.6"
-            },
-            "require-dev": {
-                "illuminate/routing": "^5.3",
-                "illuminate/support": "^5.3",
-                "mockery/mockery": "^0.9.5",
-                "orchestra/testbench": "3.3",
-                "phpunit/phpunit": "^5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "TalvBansal\\MediaManager\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Talvinder Bansal",
-                    "email": "talvbansal@hotmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A media browser and uploader for laravel apps written in vue js and bootstrap",
-            "keywords": [
-                "Media Manager",
-                "Vue.js",
-                "blog",
-                "bootstrap",
-                "developers",
-                "easel",
-                "file uploader",
-                "files",
-                "laravel",
-                "media",
-                "minimal",
-                "uploader"
-            ],
-            "time": "2017-07-24T16:35:20+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
