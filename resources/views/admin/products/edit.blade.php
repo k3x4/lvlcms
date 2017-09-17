@@ -1,5 +1,10 @@
 @extends('admin.layout.master')
 
+@section('head')
+@parent
+<script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-bottom">
@@ -31,7 +36,16 @@
                     <strong>Title:</strong>
                     {!! Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']) !!}
                 </div>
-
+                <div class="form-group">
+                    <strong>Image:</strong><br />
+                    <img id="holder" style="max-height:100px;margin-bottom:10px;">
+                    <span class="input-group-btn">
+                        <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                            <i class="fa fa-picture-o"></i> Choose
+                        </a>
+                    </span>
+                    {!! Form::hidden('filepath', null, ['placeholder' => 'File path', 'id' => 'thumbnail', 'class' => 'form-control']) !!}
+                </div>
                 <div class="form-group">
                     <strong>Description:</strong>
                     {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
@@ -42,4 +56,13 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('footer_scripts')
+@parent
+<script>
+    $(document).ready(function(){
+        $('#lfm').filemanager('image');
+    });
+</script>
 @endsection
