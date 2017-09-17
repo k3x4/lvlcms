@@ -38,13 +38,16 @@
                 </div>
                 <div class="form-group">
                     <strong>Image:</strong><br />
-                    <img id="holder" style="max-height:100px;margin-bottom:10px;">
+                    <div class="img-wrap">
+                        <span class="close">&times;</span>
+                        <img id="holder" style="max-height:100px;" src='{{ $productImage }}'><br />
+                    </div>    
                     <span class="input-group-btn">
                         <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
                             <i class="fa fa-picture-o"></i> Choose
                         </a>
                     </span>
-                    {!! Form::hidden('image', null, ['placeholder' => 'File path', 'id' => 'thumbnail', 'class' => 'form-control']) !!}
+                    {!! Form::hidden('image', $productImageRelative, ['placeholder' => 'File path', 'id' => 'thumbnail', 'class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
@@ -61,8 +64,15 @@
 @section('footer_scripts')
 @parent
 <script>
-    $(document).ready(function(){
-        $('#lfm').filemanager('image');
+$(document).ready(function () {
+
+    $('#lfm').filemanager('image');
+    
+    $('.img-wrap .close').on('click', function() {
+        $('#holder').attr('src', '');
+        $('#thumbnail').val('');
     });
+
+});
 </script>
 @endsection

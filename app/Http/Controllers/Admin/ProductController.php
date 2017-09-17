@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
-use MediaUploader;
+use App\Libraries\MediaConverter;
 
 class ProductController extends Controller
 {
@@ -71,7 +71,17 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        return view('admin.products.edit',compact('product'));
+        $productImage = '';
+        $productImageRelative = '';
+        
+        if($product->hasMedia('original')){
+            $productImagePath = $product->getMedia('original')->first()->getUrl();
+            $productImageName = basename($productImagePath);
+            $productImage = env('APP_URL') . '/photos/shares/thumbs/' . $productImageName;
+            $productImageRelative = '/photos/shares/' . $productImageName;
+        }   
+        
+        return view('admin.products.edit',compact('product', 'productImage', 'productImageRelative'));
     }
 
     /**
@@ -88,14 +98,23 @@ class ProductController extends Controller
         ]);
 
         $pathToFile = env('APP_URL') . $request->input('image');
-        $baseName = basename($request->input('image'));
-        $baseNameWithoutExt = pathinfo($baseName, PATHINFO_FILENAME);
-        $media = MediaUploader::fromSource($pathToFile)->useFilename($baseNameWithoutExt . '-full')
-                                                       ->toDirectory('sizes')
-                                                       ->upload();
 
-        Product::find($id)->update($request->except('image'));
-        Product::find($id)->attachMedia($media, 'full');
+        $product = Product::find($id);
+        $product->update($request->except('image'));
+        
+        if($request->input('image')){
+            if($product->hasMedia('original')){
+                $basename = basename($request->input('image'));
+                $exists = basename($product->firstMedia('original')->getUrl());
+                if($basename != $exists)
+                    MediaConverter::generateSizes($product, $pathToFile);
+            } else {
+                MediaConverter::generateSizes($product, $pathToFile);
+            }
+        } else {
+            MediaConverter::removeAll($product, $pathToFile);
+            $product->detachMedia();
+        }
 
         return redirect()->route('admin.products.index')
                         ->with('success','Product updated successfully');
