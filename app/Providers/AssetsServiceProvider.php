@@ -40,11 +40,6 @@ class AssetsServiceProvider extends ServiceProvider
         $this->publishes([
             base_path('node_modules') . '/tinymce' => public_path('js/lib/tinymce'),
         ], 'public');
-        
-        // DROPZONE
-        $this->publishes([
-            base_path('vendor') . '/enyo/dropzone/dist/min' => public_path('dropzone/dist/min'),
-        ], 'public');
     }
 
     /**
