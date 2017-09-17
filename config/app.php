@@ -180,6 +180,8 @@ return [
         
         App\Providers\AssetsServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        
+        Plank\Mediable\MediableServiceProvider::class,
 
     ],
 
@@ -232,6 +234,7 @@ return [
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Form'      => Collective\Html\FormFacade::class,
         'Html'      => Collective\Html\HtmlFacade::class,
+        'MediaUploader' => Plank\Mediable\MediaUploaderFacade::class,
 
     ],
 

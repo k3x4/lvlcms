@@ -7,12 +7,13 @@
     "require": {
         "php": ">=7.0.0",
         "almasaeed2010/adminlte": "^2.3",
+        "enyo/dropzone": "^5.1",
         "fideloper/proxy": "~3.3",
         "intervention/image": "^2.4",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.5",
-        "unisharp/laravel-filemanager": "^1.8",
+        "plank/laravel-mediable": "^2.5",
         "zizaco/entrust": "5.2.x-dev"
     },
     "require-dev": {

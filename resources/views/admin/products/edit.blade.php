@@ -2,7 +2,8 @@
 
 @section('head')
 @parent
-<script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('dropzone/dist/min/dropzone.min.css') }}">
+<script src="{{ asset('dropzone/dist/min/dropzone.min.js') }}"></script>
 @endsection
 
 @section('content')
@@ -30,21 +31,15 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Edit Product <strong>{{ $product->title }}</strong></h3>
             </div>
-            {!! Form::model($product, ['method' => 'PATCH','route' => ['admin.products.update', $product->id]]) !!}
+            {!! Form::model($product, ['method' => 'PATCH', 'route' => ['admin.products.update', $product->id]]) !!}
             <div class="box-body">
                 <div class="form-group">
                     <strong>Title:</strong>
                     {!! Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
-                    <strong>Image:</strong><br />
-                    <img id="holder" style="max-height:100px;margin-bottom:10px;">
-                    <span class="input-group-btn">
-                        <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                            <i class="fa fa-picture-o"></i> Choose
-                        </a>
-                    </span>
-                    {!! Form::hidden('filepath', null, ['placeholder' => 'File path', 'id' => 'thumbnail', 'class' => 'form-control']) !!}
+                    <strong>Image</strong>
+                    <div class="dropzone dropzone-previews" id="my-awesome-dropzone"></div>
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
@@ -61,8 +56,13 @@
 @section('footer_scripts')
 @parent
 <script>
-    $(document).ready(function(){
-        $('#lfm').filemanager('image');
+    Dropzone.autoDiscover = false;
+    jQuery(document).ready(function() {
+
+        $("div#my-awesome-dropzone").dropzone({
+	    url: "/admin/product/update"
+	});
+
     });
 </script>
 @endsection
