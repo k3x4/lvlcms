@@ -144,4 +144,41 @@ Route::group([
         'middleware' => ['permission:product-delete']
         ]);
     
+    //MEDIA SIZES
+    Route::get('admin/mediasizes', [
+        'as' => 'admin.mediasizes.index', 
+        'uses' => 'MediaSizeController@index', 
+        'middleware' => ['permission:mediasize-read|mediasize-create|mediasize-edit|mediasize-delete']
+        ]);
+    
+    Route::get('admin/mediasizes/create', [
+        'as' => 'admin.mediasizes.create', 
+        'uses' => 'MediaSizeController@create', 
+        'middleware' => ['permission:mediasize-create']
+        ]);
+    
+    Route::post('admin/mediasizes/create', [
+        'as' => 'admin.mediasizes.store', 
+        'uses' => 'MediaSizeController@store', 
+        'middleware' => ['permission:mediasize-create']
+        ]);
+    
+    Route::get('admin/mediasizes/{id}/edit', [
+        'as' => 'admin.mediasizes.edit', 
+        'uses' => 'MediaSizeController@edit', 
+        'middleware' => ['permission:mediasize-edit']
+        ]);
+    
+    Route::patch('admin/mediasizes/{id}', [
+        'as' => 'admin.mediasizes.update', 
+        'uses' => 'MediaSizeController@update', 
+        'middleware' => ['permission:mediasize-edit']
+        ]);
+    
+    Route::delete('admin/mediasizes/{id}', [
+        'as' => 'admin.mediasizes.destroy', 
+        'uses' => 'MediaSizeController@destroy', 
+        'middleware' => ['permission:mediasize-delete']
+        ]);
+    
 });

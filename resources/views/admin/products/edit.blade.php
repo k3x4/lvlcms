@@ -25,7 +25,7 @@
 @endif
 
 <div class="row">
-    <div class="col-lg-12 margin-tb">
+    <div class="col-lg-12">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Edit Product <strong>{{ $product->title }}</strong></h3>
@@ -44,7 +44,7 @@
                             <i class="fa fa-picture-o"></i> Choose
                         </a>
                     </span>
-                    {!! Form::hidden('filepath', null, ['placeholder' => 'File path', 'id' => 'thumbnail', 'class' => 'form-control']) !!}
+                    {!! Form::hidden('image', null, ['placeholder' => 'File path', 'id' => 'thumbnail', 'class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>

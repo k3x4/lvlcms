@@ -33,6 +33,29 @@
             <!--<li class="header">HEADER</li>-->
             <!-- Optionally, you can add icons to the links -->
             
+            <li{{ bs_active(['admin/media*', 'admin/mediasizes*']) }}>
+                <a href="#"><i class="fa fa-link"></i> <span>Media</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li{{ bs_active('admin/media') }}><a href="{{ url('admin/media') }}">All media</a></li>
+                    <li{{ bs_active('admin/media/upload') }}><a href="{{ url('admin/media/upload') }}">Upload Media</a></li>
+                    <li{{ bs_active('admin/mediasizes*') }}>
+                        <a href="{{ url('admin/mediasizes') }}"> <span>Media Sizes</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li{{ bs_active('admin/mediasizes') }}><a href="{{ url('admin/mediasizes') }}">All media sizes</a></li>
+                            <li{{ bs_active('admin/mediasizes/create') }}><a href="{{ url('admin/mediasizes/create') }}">Create media size</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            
             <li{{ bs_active('admin/products*') }}>
                 <a href="#"><i class="fa fa-link"></i> <span>Products</span>
                     <span class="pull-right-container">

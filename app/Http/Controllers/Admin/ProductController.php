@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
+use MediaUploader;
 
 class ProductController extends Controller
 {
@@ -86,9 +87,15 @@ class ProductController extends Controller
             'title' => 'required'
         ]);
 
-        $pathToFile = $request->input('image');
-        
+        $pathToFile = env('APP_URL') . $request->input('image');
+        $baseName = basename($request->input('image'));
+        $baseNameWithoutExt = pathinfo($baseName, PATHINFO_FILENAME);
+        $media = MediaUploader::fromSource($pathToFile)->useFilename($baseNameWithoutExt . '-full')
+                                                       ->toDirectory('sizes')
+                                                       ->upload();
+
         Product::find($id)->update($request->except('image'));
+        Product::find($id)->attachMedia($media, 'full');
 
         return redirect()->route('admin.products.index')
                         ->with('success','Product updated successfully');
