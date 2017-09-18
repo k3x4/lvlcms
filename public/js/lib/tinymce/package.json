@@ -14,13 +14,13 @@
     ]
   ],
   "_from": "tinymce@latest",
-  "_id": "tinymce@4.6.6",
+  "_id": "tinymce@4.6.7",
   "_inCache": true,
   "_location": "/tinymce",
   "_nodeVersion": "7.2.1",
   "_npmOperationalInternal": {
     "host": "s3://npm-registry-packages",
-    "tmp": "tmp/tinymce-4.6.6.tgz_1504095489358_0.6864771880209446"
+    "tmp": "tmp/tinymce-4.6.7.tgz_1505734637661_0.40118752210401"
   },
   "_npmUser": {
     "name": "ephox",
@@ -40,8 +40,8 @@
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "https://registry.npmjs.org/tinymce/-/tinymce-4.6.6.tgz",
-  "_shasum": "d9282f35707bee29d3e1542fded249e0a86cafd4",
+  "_resolved": "https://registry.npmjs.org/tinymce/-/tinymce-4.6.7.tgz",
+  "_shasum": "ef2e82828989073d187a4e3491c74eb6a8cd92f3",
   "_shrinkwrap": null,
   "_spec": "tinymce",
   "_where": "C:\\xampp\\htdocs\\lvlcms",
@@ -53,8 +53,8 @@
   "devDependencies": {},
   "directories": {},
   "dist": {
-    "shasum": "d9282f35707bee29d3e1542fded249e0a86cafd4",
-    "tarball": "https://registry.npmjs.org/tinymce/-/tinymce-4.6.6.tgz"
+    "shasum": "ef2e82828989073d187a4e3491c74eb6a8cd92f3",
+    "tarball": "https://registry.npmjs.org/tinymce/-/tinymce-4.6.7.tgz"
   },
   "keywords": [
     "editor",
@@ -80,5 +80,5 @@
   "optionalDependencies": {},
   "readme": "ERROR: No README data found!",
   "scripts": {},
-  "version": "4.6.6"
+  "version": "4.6.7"
 }

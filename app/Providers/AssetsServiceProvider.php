@@ -36,10 +36,6 @@ class AssetsServiceProvider extends ServiceProvider
             base_path('node_modules') . '/tinymce' => public_path('js/lib/tinymce'),
         ], 'public');
         
-        // TINYMCE-LIGHT-SKIN
-        $this->publishes([
-            base_path('node_modules') . '/tinymce' => public_path('js/lib/tinymce'),
-        ], 'public');
     }
 
     /**
