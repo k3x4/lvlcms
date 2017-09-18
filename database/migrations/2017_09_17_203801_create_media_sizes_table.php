@@ -18,6 +18,7 @@ class CreateMediaSizesTable extends Migration
             $table->string('tag');
             $table->integer('width')->unsigned();
             $table->integer('height')->unsigned();
+            $table->boolean('crop')->default(true);
             $table->boolean('enabled')->default(true);
             $table->timestamps();
         });

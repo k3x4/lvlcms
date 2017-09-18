@@ -8,5 +8,5 @@ class MediaSize extends Model
 {
     public $fillable = ['tag', 'width', 'height', 'enabled'];
     
-    protected $casts = [ 'enabled' => 'boolean' ];
+    protected $casts = [ 'crop' => 'boolean', 'enabled' => 'boolean' ];
 }

@@ -40,7 +40,9 @@ class MediaSizeController extends Controller
         $this->validate($request, [
             'tag' => 'required',
             'width' => 'required|integer',
-            'height' => 'required|integer'
+            'height' => 'required|integer',
+            'crop' => 'boolean',
+            'enabled' => 'boolean'
         ]);
 
         MediaSize::create($request->all());
@@ -86,6 +88,7 @@ class MediaSizeController extends Controller
             'tag' => 'required',
             'width' => 'required|integer',
             'height' => 'required|integer',
+            'crop' => 'boolean',
             'enabled' => 'boolean'
         ]);
 

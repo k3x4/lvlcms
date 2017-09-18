@@ -78,7 +78,7 @@ class ProductController extends Controller
             $productImagePath = $product->getMedia('original')->first()->getUrl();
             $productImageName = basename($productImagePath);
             $productImage = env('APP_URL') . '/photos/sizes/' . $productImageName;
-            $productImageRelative = '/photos/shares/' . $productImageName;
+            $productImageRelative = '/photos/sizes/' . $productImageName;
         }   
         
         return view('admin.products.edit',compact('product', 'productImage', 'productImageRelative'));
@@ -105,7 +105,7 @@ class ProductController extends Controller
         if($request->input('image')){
             $this->saveMedia($product, $pathToFile);
         } else {
-            MediaConverter::removeAll($product, $pathToFile);
+            MediaConverter::removeAll($product);
             $product->media()->delete();
         }
 
@@ -129,6 +129,7 @@ class ProductController extends Controller
     public function mediaExists($model, $pathToFile){
         if ($model->hasMedia('original')) {
             $basename = basename($pathToFile);
+            $basename = $model->id . '_' . $basename;
             $exists = basename($model->firstMedia('original')->getUrl());
             if ($basename == $exists){
                 return true;

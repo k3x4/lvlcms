@@ -19,14 +19,14 @@ class MediaConverter {
 
         $mediaSizes = MediaSize::where('enabled', true)->get();
 
-        $media = MediaConverter::uploadMedia($imagePath, $baseName->name);      
+        $media = MediaConverter::uploadMedia($imagePath, $model->id . '_' . $baseName->name);      
         $model->attachMedia($media, 'original');
         
         $disk = 'photos';
         $tempFolder = 'temp';
 
         foreach ($mediaSizes as $mediaSize) {
-            $image = MediaConverter::generateImage($imagePath, $mediaSize->width, $mediaSize->height);
+            $image = MediaConverter::generateImage($model->id, $imagePath, $mediaSize->width, $mediaSize->height);
             MediaConverter::saveImage($image);
             
             $filenamePath = env('APP_URL') . $DS . $disk. $DS . $tempFolder . $DS . $image->filename;
@@ -38,7 +38,7 @@ class MediaConverter {
         }
     }
 
-    public static function removeAll(Model $model, $imagePath) {
+    public static function removeAll(Model $model) {
         $modelMedia = $model->media()->get();
 
         foreach ($modelMedia as $media) {
@@ -74,14 +74,14 @@ class MediaConverter {
         return $img;
     }
     
-    public static function generateImage($imagePath, $width, $height) {
+    public static function generateImage($id, $imagePath, $width, $height) {
         $img = MediaConverter::resizeImg($imagePath, $width, $height);
         $tag = $width . 'x' . $height;
         
         $baseName = basename($imagePath);
         $baseName = MediaConverter::splitFilename($baseName);
         
-        $filename = $baseName->name . '-' . $tag . '.' . $baseName->extension;
+        $filename = $id . '_' . $baseName->name . '-' . $tag . '.' . $baseName->extension;
         
         $obj = [
             'img' => $img,

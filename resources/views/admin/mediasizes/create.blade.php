@@ -40,6 +40,11 @@
                     {!! Form::number('height', null, ['placeholder' => 'Width','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
+                    <strong>Crop:</strong>
+                    {!! Form::hidden('crop', 0); !!}
+                    {!! Form::checkbox('crop', 1) !!}
+                </div>
+                <div class="form-group">
                     <strong>Enable:</strong>
                     {!! Form::hidden('enabled', 0); !!}
                     {!! Form::checkbox('enabled', 1, true) !!}
