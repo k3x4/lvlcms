@@ -127,7 +127,7 @@ class ProductController extends Controller
     }
     
     public function mediaExists($model, $pathToFile){
-        if ($product->hasMedia('original')) {
+        if ($model->hasMedia('original')) {
             $basename = basename($pathToFile);
             $exists = basename($model->firstMedia('original')->getUrl());
             if ($basename == $exists){
