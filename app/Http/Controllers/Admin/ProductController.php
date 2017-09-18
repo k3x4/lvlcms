@@ -103,17 +103,10 @@ class ProductController extends Controller
         $product->update($request->except('image'));
         
         if($request->input('image')){
-            if($product->hasMedia('original')){
-                $basename = basename($request->input('image'));
-                $exists = basename($product->firstMedia('original')->getUrl());
-                if($basename != $exists)
-                    MediaConverter::generateSizes($product, $pathToFile);
-            } else {
-                MediaConverter::generateSizes($product, $pathToFile);
-            }
+            $this->saveMedia($product, $pathToFile);
         } else {
-            MediaConverter::removeAll($product, $pathToFile);
-            $product->detachMedia();
+            //MediaConverter::removeAll($product, $pathToFile);
+            $product->media()->delete();
         }
 
         return redirect()->route('admin.products.index')
@@ -131,5 +124,23 @@ class ProductController extends Controller
         Product::find($id)->delete();
         return redirect()->route('admin.products.index')
                         ->with('success','Product deleted successfully');
+    }
+    
+    public function mediaExists($model, $pathToFile){
+        if ($product->hasMedia('original')) {
+            $basename = basename($pathToFile);
+            $exists = basename($model->firstMedia('original')->getUrl());
+            if ($basename == $exists){
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+    public function saveMedia($model, $pathToFile){
+        if( ! $this->mediaExists($model, $pathToFile) ){
+            MediaConverter::generateSizes($model, $pathToFile);
+        }   
     }
 }
