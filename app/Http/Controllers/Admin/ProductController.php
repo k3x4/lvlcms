@@ -77,7 +77,7 @@ class ProductController extends Controller
         if($product->hasMedia('original')){
             $productImagePath = $product->getMedia('original')->first()->getUrl();
             $productImageName = basename($productImagePath);
-            $productImage = env('APP_URL') . '/photos/shares/thumbs/' . $productImageName;
+            $productImage = env('APP_URL') . '/photos/sizes/' . $productImageName;
             $productImageRelative = '/photos/shares/' . $productImageName;
         }   
         
@@ -105,7 +105,7 @@ class ProductController extends Controller
         if($request->input('image')){
             $this->saveMedia($product, $pathToFile);
         } else {
-            //MediaConverter::removeAll($product, $pathToFile);
+            MediaConverter::removeAll($product, $pathToFile);
             $product->media()->delete();
         }
 

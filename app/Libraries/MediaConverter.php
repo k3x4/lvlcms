@@ -12,12 +12,12 @@ class MediaConverter {
 
     public static function generateSizes(Model $model, $imagePath) {
 
-        $DS = DIRECTORY_SEPARATOR;
+        $DS = '/';
         
         $baseName = basename($imagePath);
         $baseName = MediaConverter::splitFilename($baseName);
 
-        $mediaSizes = MediaSize::all();
+        $mediaSizes = MediaSize::where('enabled', true)->get();
 
         $media = MediaConverter::uploadMedia($imagePath, $baseName->name);      
         $model->attachMedia($media, 'original');
@@ -30,7 +30,8 @@ class MediaConverter {
             MediaConverter::saveImage($image);
             
             $filenamePath = env('APP_URL') . $DS . $disk. $DS . $tempFolder . $DS . $image->filename;
-            $media = MediaConverter::uploadMedia($filenamePath, $image->filename);  
+            $imageName = MediaConverter::splitFilename($image->filename);
+            $media = MediaConverter::uploadMedia($filenamePath, $imageName->name);  
             $model->attachMedia($media, $image->tag);
             
             MediaConverter::deleteImage($tempFolder . $DS . $image->filename);
