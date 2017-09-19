@@ -27,6 +27,10 @@ class MediaConverter {
 
         foreach ($mediaSizes as $mediaSize) {
             $image = MediaConverter::generateImage($model->id, $imagePath, $mediaSize->width, $mediaSize->height);
+            
+            if( ! $image )
+                continue;
+            
             MediaConverter::saveImage($image);
             
             $filenamePath = env('APP_URL') . $DS . $disk. $DS . $tempFolder . $DS . $image->filename;
@@ -68,20 +72,49 @@ class MediaConverter {
         return $media;
     }
     
-    public static function resizeImg($imagePath, $width, $height) {
-        $img = Image::make($imagePath);
-        $img->resize($width, $height);
+    public static function resizeImg($imagePath, $newWidth, $newHeight, $crop = true) {
+        $img = Image::make($imagePath)->orientate();
+        
+        $width = $img->width();
+        $height = $img->height();
+        
+        if( ($newWidth > $width) || ($newHeight > $height))
+            return null;
+        
+        $widthVal = null;
+        $heightVal = null;
+        
+        if($width > $height){
+            $widthVal = $newWidth;
+        } else {
+            $heightVal = $newHeight;
+        }
+        
+        //$img->resize($newWidth, $newHeight);
+        $img->resize($widthVal, $heightVal, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
+        
         return $img;
     }
     
+    
+    
     public static function generateImage($id, $imagePath, $width, $height) {
         $img = MediaConverter::resizeImg($imagePath, $width, $height);
-        $tag = $width . 'x' . $height;
+        
+        if( ! $img )
+            return null;
+        
+        $tag = $img->width() . 'x' . $img->height();
         
         $baseName = basename($imagePath);
         $baseName = MediaConverter::splitFilename($baseName);
         
         $filename = $id . '_' . $baseName->name . '-' . $tag . '.' . $baseName->extension;
+        
+        $tag = $width . 'x' . $height;
         
         $obj = [
             'img' => $img,
