@@ -42,9 +42,10 @@ class ProductController extends Controller
             'title' => 'required'
         ]);
 
-        $pathToFile = $request->input('image');
+        $pathToFile = env('APP_URL') . $request->input('image');
         
-        Product::create($request->except('image'));
+        $product = Product::create($request->except('image'));
+        $this->saveMedia($product, $pathToFile);
 
         return redirect()->route('admin.products.index')
                         ->with('success','Product created successfully');
