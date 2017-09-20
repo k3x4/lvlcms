@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group">
                     <strong>Height:</strong>
-                    {!! Form::number('height', null, ['placeholder' => 'Width','class' => 'form-control']) !!}
+                    {!! Form::number('height', null, ['placeholder' => 'Height','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     <strong>Crop:</strong>

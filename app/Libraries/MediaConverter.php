@@ -26,7 +26,7 @@ class MediaConverter {
         $tempFolder = 'temp';
 
         foreach ($mediaSizes as $mediaSize) {
-            $image = MediaConverter::generateImage($model->id, $imagePath, $mediaSize->width, $mediaSize->height);
+            $image = MediaConverter::generateImage($model->id, $imagePath, $mediaSize->width, $mediaSize->height, $mediaSizes->crop);
             
             if( ! $image )
                 continue;
@@ -96,13 +96,15 @@ class MediaConverter {
             $constraint->upsize();
         });
         
+        if($crop){
+            $img->crop($widthVal, $heightVal);
+        }
+        
         return $img;
     }
     
-    
-    
-    public static function generateImage($id, $imagePath, $width, $height) {
-        $img = MediaConverter::resizeImg($imagePath, $width, $height);
+    public static function generateImage($id, $imagePath, $width, $height, $crop = true) {
+        $img = MediaConverter::resizeImg($imagePath, $width, $height, $crop);
         
         if( ! $img )
             return null;
