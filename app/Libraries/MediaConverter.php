@@ -26,7 +26,7 @@ class MediaConverter {
         $tempFolder = 'temp';
 
         foreach ($mediaSizes as $mediaSize) {
-            $image = MediaConverter::generateImage($model->id, $imagePath, $mediaSize->width, $mediaSize->height, $mediaSizes->crop);
+            $image = MediaConverter::generateImage($model->id, $imagePath, $mediaSize->width, $mediaSize->height, $mediaSize->crop);
             
             if( ! $image )
                 continue;
