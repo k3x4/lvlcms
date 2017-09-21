@@ -5,44 +5,78 @@ namespace App\Libraries;
 use Illuminate\Database\Eloquent\Model;
 use App\MediaSize;
 use MediaUploader;
-use Image;
 use Storage;
+use App\Libraries\ImageUtils;
 
 class MediaConverter {
+    
+    private $model;
+    private $disk;
+    private $tempFolder;
 
-    public static function generateSizes(Model $model, $imagePath) {
-
-        $DS = '/';
-        
-        $baseName = basename($imagePath);
-        $baseName = MediaConverter::splitFilename($baseName);
-
-        $mediaSizes = MediaSize::where('enabled', true)->get();
-
-        $media = MediaConverter::uploadMedia($imagePath, $model->id . '_' . $baseName->name);      
-        $model->attachMedia($media, 'original');
-        
-        $disk = 'photos';
-        $tempFolder = 'temp';
-
-        foreach ($mediaSizes as $mediaSize) {
-            $image = MediaConverter::generateImage($model->id, $imagePath, $mediaSize->width, $mediaSize->height, $mediaSize->crop);
-            
-            if( ! $image )
-                continue;
-            
-            MediaConverter::saveImage($image);
-            
-            $filenamePath = env('APP_URL') . $DS . $disk. $DS . $tempFolder . $DS . $image->filename;
-            $imageName = MediaConverter::splitFilename($image->filename);
-            $media = MediaConverter::uploadMedia($filenamePath, $imageName->name);  
-            $model->attachMedia($media, $image->tag);
-            
-            MediaConverter::deleteImage($tempFolder . $DS . $image->filename);
+    public function __construct(Model $model) {
+        $this->model = $model;
+        $this->disk = 'photos';
+        $this->tempFolder = 'temp';
+    }
+    
+    public function manipulateImage($path){
+        if($path){
+            $this->saveImage( env('APP_URL') . $path );
+        } else {
+            $this->removeAll();
+            $this->model->media()->delete();
         }
     }
+    
+    private function mediaExists($path){
+        if ($this->model->hasMedia('original')) {
+            $basename = basename($path);
+            $basename = $this->model->id . '_' . $basename;
+            $exists = basename($this->model->firstMedia('original')->getUrl());
+            if ($basename == $exists){
+                return true;
+            }
+        }
 
-    public static function removeAll(Model $model) {
+        return false;
+    }
+    
+    public function saveImage($path){
+        if( ! $this->mediaExists($path) ){
+            $this->generateSizes($path);
+        }   
+    }
+    
+    public function generateSizes($path) {
+        $mediaSizes = MediaSize::where('enabled', true)->get();
+
+        $filename = $this->generateFilename($path);
+        $image = $this->uploadMedia($path, $filename);      
+        $this->model->attachMedia($image, 'original');
+
+        foreach ($mediaSizes as $mediaSize) {
+            $image = $this->makeSize($path, $mediaSize->width, $mediaSize->height);
+            $filename = $this->generateFilename($path, $mediaSize->width, $mediaSize->height, true);
+            $this->saveImageToDisk($image, $filename);
+            
+            $tag = $this->getTag($this->getName($filename));
+            
+            $filenamePath = $this->getFullTempPath($filename);
+            $media = $this->uploadMedia($filenamePath, $filename);  
+            $this->model->attachMedia($media, $tag);
+            
+            $this->deleteImageFromDisk($this->tempFolder . '/' . $filename);
+        }
+    }
+    
+    private function makeSize($path, $width, $height){
+        $image = new ImageUtils($path);
+        $image->resize($width, $height);
+        return $image->get();
+    }
+
+    private function removeAll(Model $model) {
         $modelMedia = $model->media()->get();
 
         foreach ($modelMedia as $media) {
@@ -51,19 +85,37 @@ class MediaConverter {
         }
     }
 
-    public static function splitFilename($filename) {
-        $name = pathinfo($filename, PATHINFO_FILENAME);
-        $extension = pathinfo($filename, PATHINFO_EXTENSION);
+    private function getImageName($image){
+        $core = $image->getCore();
+        $name = pathinfo($core, PATHINFO_FILENAME);
 
-        $obj = [
-            'name' => $name,
-            'extension' => $extension
-        ];
-
-        return (object) $obj;
+        return $name;
     }
     
-    public static function uploadMedia($source, $filename, $toDirectory = 'sizes'){
+    private function getName($filename){
+        $filename = basename($filename);
+        $name = pathinfo($filename, PATHINFO_FILENAME);
+
+        return $name;
+    }
+    
+    private function getExtension($filename){
+        $filename = basename($filename);
+        $name = pathinfo($filename, PATHINFO_EXTENSION);
+
+        return $name;
+    }
+    
+    private function getTag($filename){
+        $parts = explode('-', $filename);
+        return end($parts);
+    }
+    
+    private function getFullTempPath($filename){
+        return env('APP_URL') . '/' . $this->disk. '/' . $this->tempFolder . '/' . $filename;
+    }
+    
+    private function uploadMedia($source, $filename, $toDirectory = 'sizes'){
         $media = MediaUploader::fromSource($source)
                 ->useFilename($filename)
                 ->toDirectory($toDirectory)
@@ -72,66 +124,26 @@ class MediaConverter {
         return $media;
     }
     
-    public static function resizeImg($imagePath, $newWidth, $newHeight, $crop = true) {
-        $img = Image::make($imagePath)->orientate();
+    private function generateFilename($path, $width = 0, $height = 0, $withExtension = false){
+        $filename  = $this->model->id . '_';
+        $filename .= $this->getName($path);
         
-        $width = $img->width();
-        $height = $img->height();
-        
-        if( ($newWidth > $width) || ($newHeight > $height))
-            return null;
-        
-        $widthVal = null;
-        $heightVal = null;
-        
-        if($width > $height){
-            $widthVal = $newWidth;
-        } else {
-            $heightVal = $newHeight;
+        if($width && $height){
+            $filename .= '-' . $width . 'x' . $height;
         }
         
-        //$img->resize($newWidth, $newHeight);
-        $img->resize($widthVal, $heightVal, function ($constraint) {
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        });
-        
-        if($crop){
-            $img->crop($widthVal, $heightVal);
+        if($withExtension){
+             $filename .= '.' . $this->getExtension($path);
         }
         
-        return $img;
+        return $filename;
     }
     
-    public static function generateImage($id, $imagePath, $width, $height, $crop = true) {
-        $img = MediaConverter::resizeImg($imagePath, $width, $height, $crop);
-        
-        if( ! $img )
-            return null;
-        
-        $tag = $img->width() . 'x' . $img->height();
-        
-        $baseName = basename($imagePath);
-        $baseName = MediaConverter::splitFilename($baseName);
-        
-        $filename = $id . '_' . $baseName->name . '-' . $tag . '.' . $baseName->extension;
-        
-        $tag = $width . 'x' . $height;
-        
-        $obj = [
-            'img' => $img,
-            'tag' => $tag,
-            'filename' => $filename
-        ];
-
-        return (object) $obj;
+    private function saveImageToDisk($image, $filename, $disk = 'photos', $tempPath = 'temp'){
+        Storage::disk($disk)->put($tempPath . DIRECTORY_SEPARATOR . $filename, (string) $image->encode());
     }
     
-    public static function saveImage($image, $disk = 'photos', $tempPath = 'temp'){
-        Storage::disk($disk)->put($tempPath . DIRECTORY_SEPARATOR . $image->filename, (string) $image->img->encode());
-    }
-    
-    public static function deleteImage($filename, $disk = 'photos'){
+    private function deleteImageFromDisk($filename, $disk = 'photos'){
         Storage::disk($disk)->delete($filename);
     }
 

@@ -45,7 +45,8 @@ class ProductController extends Controller
         $pathToFile = env('APP_URL') . $request->input('image');
         
         $product = Product::create($request->except('image'));
-        $this->saveMedia($product, $pathToFile);
+        $mediaConverter = new MediaConverter($product);
+        $mediaConverter->saveImage($request->input('image'));
 
         return redirect()->route('admin.products.index')
                         ->with('success','Product created successfully');
@@ -103,12 +104,8 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->update($request->except('image'));
         
-        if($request->input('image')){
-            $this->saveMedia($product, $pathToFile);
-        } else {
-            MediaConverter::removeAll($product);
-            $product->media()->delete();
-        }
+        $mediaConverter = new MediaConverter($product);
+        $mediaConverter->manipulateImage($request->input('image'));
 
         return redirect()->route('admin.products.index')
                         ->with('success','Product updated successfully');
@@ -127,22 +124,4 @@ class ProductController extends Controller
                         ->with('success','Product deleted successfully');
     }
     
-    public function mediaExists($model, $pathToFile){
-        if ($model->hasMedia('original')) {
-            $basename = basename($pathToFile);
-            $basename = $model->id . '_' . $basename;
-            $exists = basename($model->firstMedia('original')->getUrl());
-            if ($basename == $exists){
-                return true;
-            }
-        }
-
-        return false;
-    }
-    
-    public function saveMedia($model, $pathToFile){
-        if( ! $this->mediaExists($model, $pathToFile) ){
-            MediaConverter::generateSizes($model, $pathToFile);
-        }   
-    }
 }
