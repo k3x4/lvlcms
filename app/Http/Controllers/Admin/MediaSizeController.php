@@ -42,6 +42,7 @@ class MediaSizeController extends Controller
             'width' => 'required|integer',
             'height' => 'required|integer',
             'crop' => 'boolean',
+            'crop_position' => 'required|string',
             'enabled' => 'boolean'
         ]);
 
@@ -89,6 +90,7 @@ class MediaSizeController extends Controller
             'width' => 'required|integer',
             'height' => 'required|integer',
             'crop' => 'boolean',
+            'crop_position' => 'required|string',
             'enabled' => 'boolean'
         ]);
 

@@ -42,7 +42,22 @@
                 <div class="form-group">
                     <strong>Crop:</strong>
                     {!! Form::hidden('crop', 0); !!}
-                    {!! Form::checkbox('crop', 1) !!}
+                    {!! Form::checkbox('crop', 1, true) !!}
+                </div>
+                <div class="form-group">
+                    <strong>Crop Position:</strong>
+                    {!! Form::select('crop_position', [
+                        'top-left' => 'Top left',
+                        'top' => 'Top',
+                        'top-right' => 'Top right',
+                        'left' => 'Left',
+                        'center' => 'Center',
+                        'right' => 'Right',
+                        'bottom-left' => 'Bottom left',
+                        'bottom' => 'Bottom',
+                        'bottom-right' => 'Bottom right'
+                        ], 'center', ['class' => 'form-control'])
+                    !!}
                 </div>
                 <div class="form-group">
                     <strong>Enable:</strong>

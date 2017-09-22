@@ -55,24 +55,29 @@ class MediaConverter {
         $image = $this->uploadMedia($path, $filename);      
         $this->model->attachMedia($image, 'original');
 
+        $mediaSizes = $this->cleanMediaSizes($path, $mediaSizes);
+        
         foreach ($mediaSizes as $mediaSize) {
-            $image = $this->makeSize($path, $mediaSize->width, $mediaSize->height);
-            $filename = $this->generateFilename($path, $mediaSize->width, $mediaSize->height, true);
-            $this->saveImageToDisk($image, $filename);
-            
-            $tag = $this->getTag($this->getName($filename));
-            
-            $filenamePath = $this->getFullTempPath($filename);
-            $media = $this->uploadMedia($filenamePath, $filename);  
-            $this->model->attachMedia($media, $tag);
-            
+            $filename = $this->saveImageTemp($path, $mediaSize);
+            $this->attachMedia($filename);
             $this->deleteImageFromDisk($this->tempFolder . '/' . $filename);
         }
     }
     
-    private function makeSize($path, $width, $height){
+    private function makeSize($path, $mediaSize){
         $image = new ImageUtils($path);
-        $image->resize($width, $height);
+        
+        $width = $mediaSize->width;
+        $height = $mediaSize->height;
+        $crop = $mediaSize->crop;
+        $cropPosition = $mediaSize->crop_position;
+        
+        if($crop){
+            $image->fit($width, $height, $cropPosition);
+        } else {
+            $image->resize($width, $height);
+        }
+        
         return $image->get();
     }
 
@@ -85,13 +90,6 @@ class MediaConverter {
         }
     }
 
-    private function getImageName($image){
-        $core = $image->getCore();
-        $name = pathinfo($core, PATHINFO_FILENAME);
-
-        return $name;
-    }
-    
     private function getName($filename){
         $filename = basename($filename);
         $name = pathinfo($filename, PATHINFO_FILENAME);
@@ -124,23 +122,61 @@ class MediaConverter {
         return $media;
     }
     
-    private function generateFilename($path, $width = 0, $height = 0, $withExtension = false){
+    private function generateFilename($path, $width = 0, $height = 0){
         $filename  = $this->model->id . '_';
         $filename .= $this->getName($path);
         
         if($width && $height){
             $filename .= '-' . $width . 'x' . $height;
         }
-        
-        if($withExtension){
-             $filename .= '.' . $this->getExtension($path);
-        }
+              
+        return $filename;
+    }
+    
+    private function generateFilenameWithExtension($path, $width = 0, $height = 0){
+        $filename = $this->generateFilename($path, $width, $height);
+        $filename .= '.' . $this->getExtension($path);
         
         return $filename;
     }
     
-    private function saveImageToDisk($image, $filename, $disk = 'photos', $tempPath = 'temp'){
-        Storage::disk($disk)->put($tempPath . DIRECTORY_SEPARATOR . $filename, (string) $image->encode());
+    private function saveImageTemp($path, $mediaSize) {
+        $image = $this->makeSize($path, $mediaSize);
+        $newWidth = $image->width();
+        $newHeight = $image->height();
+        
+        $filename = $this->generateFilenameWithExtension($path, $newWidth, $newHeight);
+        $this->saveImageToDisk($image, $this->tempFolder . '/' . $filename);
+        
+        return $filename;
+    }
+    
+    private function cleanMediaSizes($path, $mediaSizes){
+        $image = new ImageUtils($path);
+        $width = $image->width();
+        $height = $image->height();
+        
+        $index = 0;
+        foreach ($mediaSizes as $mediaSize){
+            if( ($mediaSize->width > $width) || ($mediaSize->height > $height) ){
+                unset($mediaSizes[$index]);
+            }
+            $index++;
+        }
+        
+        return $mediaSizes;
+    }
+    
+    private function attachMedia($filename) {
+        $tag = $this->getTag($this->getName($filename));
+
+        $filenamePath = $this->getFullTempPath($filename);
+        $media = $this->uploadMedia($filenamePath, $this->getName($filename));
+        $this->model->attachMedia($media, $tag);
+    }
+
+    private function saveImageToDisk($image, $filename, $disk = 'photos'){
+        Storage::disk($disk)->put($filename, (string) $image->encode());
     }
     
     private function deleteImageFromDisk($filename, $disk = 'photos'){

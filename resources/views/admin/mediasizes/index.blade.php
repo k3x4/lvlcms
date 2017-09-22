@@ -31,6 +31,7 @@
                         <th>Width</th>
                         <th>Height</th>
                         <th>Crop</th>
+                        <th>Crop position</th>
                         <th>Enable</th>
                         <th width="280px">Action</th>
                     </tr>
@@ -42,6 +43,7 @@
                         <td>{{ $size->width }}</td>
                         <td>{{ $size->height }}</td>
                         <td>{{ ($size->crop) ? 'yes' : 'no' }}</td>
+                        <td>{{ $size->crop_position }}</td>
                         <td>{{ ($size->enabled) ? 'yes' : 'no' }}</td>
                         <td>
                             @permission('mediasize-edit')

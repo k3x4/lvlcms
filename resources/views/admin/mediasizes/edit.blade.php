@@ -45,6 +45,21 @@
                     {!! Form::checkbox('crop', 1) !!}
                 </div>
                 <div class="form-group">
+                    <strong>Crop Position:</strong>
+                    {!! Form::select('crop_position', [
+                        'top-left' => 'Top left',
+                        'top' => 'Top',
+                        'top-right' => 'Top right',
+                        'left' => 'Left',
+                        'center' => 'Center',
+                        'right' => 'Right',
+                        'bottom-left' => 'Bottom left',
+                        'bottom' => 'Bottom',
+                        'bottom-right' => 'Bottom right'
+                        ], null, ['class' => 'form-control'])
+                    !!}
+                </div>
+                <div class="form-group">
                     <strong>Enable:</strong>
                     {!! Form::hidden('enabled', 0); !!}
                     {!! Form::checkbox('enabled', 1) !!}

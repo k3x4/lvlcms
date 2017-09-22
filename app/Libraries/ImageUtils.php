@@ -16,9 +16,6 @@ class ImageUtils {
         $currentWidth = $this->image->width();
         $currentHeight = $this->image->height();
 
-        //if (($width > $currentWidth) || ($height > $currentHeight))
-           // return null;
-
         if ($currentWidth > $currentHeight) {
             $this->image->widen($width);
         } else {
@@ -26,8 +23,16 @@ class ImageUtils {
         }
     }
     
-    public function crop(){
-        
+    public function fit($width, $height, $position = 'center'){
+        $this->image->fit($width, $height, null, $position);
+    }
+    
+    public function width(){
+        return $this->image->width();
+    }
+    
+    public function height(){
+        return $this->image->height();
     }
     
     public function get(){
