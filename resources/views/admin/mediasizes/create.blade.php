@@ -42,9 +42,9 @@
                 <div class="form-group">
                     <strong>Crop:</strong>
                     {!! Form::hidden('crop', 0); !!}
-                    {!! Form::checkbox('crop', 1, true) !!}
+                    {!! Form::checkbox('crop', 1, true, ['v-model' => 'cropCheck']) !!}
                 </div>
-                <div class="form-group">
+                <div class="form-group" v-show="cropCheck">
                     <strong>Crop Position:</strong>
                     {!! Form::select('crop_position', [
                         'top-left' => 'Top left',
@@ -70,4 +70,16 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('footer_scripts')
+@parent
+<script>
+    new Vue({
+        el: '.content',
+        data: {
+            cropCheck: true
+        }
+    });
+</script>
 @endsection
