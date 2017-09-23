@@ -40,7 +40,7 @@
                     <strong>Image:</strong><br />
                     <img id="holder" style="max-height:100px;margin-bottom:10px;">
                     <span class="input-group-btn">
-                        <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                        <a data-input="thumbnail" data-preview="holder" class="btn btn-primary lfm">
                             <i class="fa fa-picture-o"></i> Choose
                         </a>
                     </span>
@@ -61,8 +61,11 @@
 @section('footer_scripts')
 @parent
 <script>
-    $(document).ready(function(){
-        $('#lfm').filemanager('image');
+    new Vue({
+        el: '.content',
+        data: {
+            
+        }
     });
 </script>
 @endsection

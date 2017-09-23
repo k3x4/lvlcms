@@ -38,7 +38,8 @@
     "type": "tag"
   },
   "_requiredBy": [
-    "#USER"
+    "#USER",
+    "/"
   ],
   "_resolved": "https://registry.npmjs.org/tinymce/-/tinymce-4.6.7.tgz",
   "_shasum": "ef2e82828989073d187a4e3491c74eb6a8cd92f3",

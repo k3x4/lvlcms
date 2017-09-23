@@ -37,13 +37,16 @@
                     {!! Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
-                    <strong>Image:</strong><br />
-                    <div class="img-wrap">
-                        <span class="close">&times;</span>
-                        <img id="holder" style="max-height:100px;" src='{{ $productImage }}'><br />
+                    <strong>Image:</strong>
+                    <div class="img-wrap" v-show="imgExists">
+                        @if ($productImage)
+                            <span class="close" v-show="imgExists" @click="removeImg">&times;</span>
+                        @endif
+                        <img id="holder" ref="holder" style="max-height:100px;" :src="imgExists">
+                        <input type="hidden" ref="holderHidden" value="{{ $productImage }}" />
                     </div>    
                     <span class="input-group-btn">
-                        <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                        <a data-input="thumbnail" data-preview="holder" class="btn btn-primary lfm">
                             <i class="fa fa-picture-o"></i> Choose
                         </a>
                     </span>
@@ -64,15 +67,23 @@
 @section('footer_scripts')
 @parent
 <script>
-$(document).ready(function () {
-
-    $('#lfm').filemanager('image');
-    
-    $('.img-wrap .close').on('click', function() {
-        $('#holder').attr('src', '');
-        $('#thumbnail').val('');
+    new Vue({
+        el: '.content',
+        data: {
+            imgExists: ""
+        },
+        mounted: function () {
+            this.imgExists = this.$refs.holderHidden.value;
+        },
+        methods: {
+            removeImg: function(){
+                this.imgExists = '';
+                this.$refs.holderHidden.value = '';
+            },
+            imgChange: function(){
+                this.$refs.holderHidden.value = this.imgExists;
+            }
+        }
     });
-
-});
 </script>
 @endsection

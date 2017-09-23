@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <strong>Crop:</strong>
                     {!! Form::hidden('crop', 0); !!}
-                    {!! Form::checkbox('crop', 1, true, ['v-model' => 'cropCheck']) !!}
+                    {!! Form::checkbox('crop', 1, true, ['@click' => 'cropCheck = !cropCheck', 'ref' => 'cropField']) !!}
                 </div>
                 <div class="form-group" v-show="cropCheck">
                     <strong>Crop Position:</strong>
@@ -78,7 +78,10 @@
     new Vue({
         el: '.content',
         data: {
-            cropCheck: true
+            cropCheck: null
+        },
+        mounted: function () {
+            this.cropCheck = this.$refs.cropField.checked
         }
     });
 </script>
