@@ -183,6 +183,8 @@ return [
         
         Plank\Mediable\MediableServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        
+        Barryvdh\Elfinder\ElfinderServiceProvider::class,
 
     ],
 

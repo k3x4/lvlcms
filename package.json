@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "jquery": "^3.2.1",
+    "jquery-colorbox": "^1.6.4",
     "tinymce": "^4.6.7"
   }
 }

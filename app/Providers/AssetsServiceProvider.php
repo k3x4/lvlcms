@@ -19,7 +19,7 @@ class AssetsServiceProvider extends ServiceProvider
         ], 'public');
         
         $this->publishes([
-            base_path('vendor') . '/almasaeed2010/adminlte/bootstrap' => public_path('adminlte/bootstrap'),
+            base_path('vendor') . '/almasaeed2010/adminlte/bower_components' => public_path('adminlte/bower_components'),
         ], 'public');
         
         $this->publishes([
@@ -29,6 +29,13 @@ class AssetsServiceProvider extends ServiceProvider
         // JQUERY
         $this->publishes([
             base_path('node_modules') . '/jquery/dist/jquery.min.js' => public_path('js/lib/jquery/jquery.min.js'),
+        ], 'public');
+        
+        // JQUERY
+        $this->publishes([
+            base_path('node_modules') . '/jquery-colorbox/jquery.colorbox-min.js' => public_path('js/lib/jquery-colorbox/js/jquery.colorbox-min.js'),
+            base_path('node_modules') . '/jquery-colorbox/example1/colorbox.css' => public_path('js/lib/jquery-colorbox/css/colorbox.css'),
+            base_path('node_modules') . '/jquery-colorbox/example1/images' => public_path('js/lib/jquery-colorbox/css/images'),
         ], 'public');
         
         // TINYMCE

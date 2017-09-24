@@ -2,6 +2,7 @@
 
 @section('head')
 @parent
+<link rel="stylesheet" href="{{ asset('js/lib/jquery-colorbox/css/colorbox.css') }}">
 <script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
 @endsection
 
@@ -38,20 +39,30 @@
                 </div>
                 <div class="form-group">
                     <strong>Image:</strong>
-                    <div class="img-wrap" v-show="imgExists">
+                    <div class="img-wrap">
                         @if ($productImage)
                             <span class="close" v-show="imgExists" @click="removeImg">&times;</span>
                         @endif
-                        <img id="holder" ref="holder" style="max-height:100px;" :src="imgExists">
-                        <input type="hidden" ref="holderHidden" value="{{ $productImage }}" />
+                        <img id="holder" ref="holder" style="max-height:100px;" :src='imgExists' />
                     </div>    
                     <span class="input-group-btn">
                         <a data-input="thumbnail" data-preview="holder" class="btn btn-primary lfm">
                             <i class="fa fa-picture-o"></i> Choose
                         </a>
                     </span>
-                    {!! Form::hidden('image', $productImageRelative, ['placeholder' => 'File path', 'id' => 'thumbnail', 'class' => 'form-control']) !!}
+                    {!! Form::hidden('image', $productImageRelative, [
+                        'placeholder' => 'File path',
+                        'id' => 'thumbnail',
+                        'class' => 'form-control',
+                        'ref' => 'imageInput'
+                        ])
+                    !!}
                 </div>
+                <div class="form-group">
+                    <label for="feature_image">Feature Image</label>
+                    <input type="text" id="feature_image" name="feature_image" value="">
+                    <a href="" class="popup_selector" data-inputid="feature_image">Select Image</a>
+                </div>    
                 <div class="form-group">
                     <strong>Description:</strong>
                     {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
@@ -66,22 +77,30 @@
 
 @section('footer_scripts')
 @parent
+<script src="{{ asset('js/lib/jquery-colorbox/js/jquery.colorbox-min.js') }}"></script>
+<script src="{{ asset('packages/barryvdh/elfinder/js/standalonepopup.min.js') }}"></script>
 <script>
+    
+    $(function(){
+        parent.$.colorbox.resize({
+            innerWidth:$('body').width(),
+            innerHeight:$('body').height()
+        });
+    });
+    
     new Vue({
         el: '.content',
         data: {
             imgExists: ""
         },
-        mounted: function () {
-            this.imgExists = this.$refs.holderHidden.value;
+        mounted() {
+            this.imgExists = this.$refs.holder.src;
         },
         methods: {
-            removeImg: function(){
+            removeImg() {
                 this.imgExists = '';
-                this.$refs.holderHidden.value = '';
-            },
-            imgChange: function(){
-                this.$refs.holderHidden.value = this.imgExists;
+                this.$refs.holder.src = '';
+                this.$refs.imageInput.value = '';
             }
         }
     });

@@ -22,7 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
         
         <!-- Bootstrap 3.3.6 -->
-        <link rel="stylesheet" href="{{ asset('adminlte/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <!-- Ionicons -->

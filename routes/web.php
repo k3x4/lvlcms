@@ -24,6 +24,8 @@ Route::group([
     'middleware' => ['auth']
     ], function() {
     
+    Route::get('admin/showPopup', 'Barryvdh\Elfinder\ElfinderController@showPopup');
+    
     // ADMIN PANEL
     Route::get('admin', [
         'as' => 'admin.index', 

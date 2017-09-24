@@ -1,7 +1,7 @@
 @section('footer_scripts')
 
 <!-- Bootstrap 3.3.6 -->
-<script src="{{ asset('adminlte/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('adminlte/dist/js/app.min.js') }}"></script>
 
