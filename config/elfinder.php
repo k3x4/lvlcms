@@ -95,7 +95,8 @@ return array(
     |
     */
     'root_options' => array(
-        'uploadOverwrite' => false
+        'uploadOverwrite' => false,
+        'tmbSize' => 96
     ),
 
 );
