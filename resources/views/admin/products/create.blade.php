@@ -2,7 +2,7 @@
 
 @section('head')
 @parent
-<script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('js/lib/jquery-colorbox/css/colorbox.css') }}">
 @endsection
 
 @section('content')
@@ -60,12 +60,11 @@
 
 @section('footer_scripts')
 @parent
+<script src="{{ asset('js/lib/jquery-colorbox/js/jquery.colorbox-min.js') }}"></script>
+<script src="{{ asset('packages/barryvdh/elfinder/js/standalonepopup.min.js') }}"></script>
 <script>
-    new Vue({
-        el: '.content',
-        data: {
-            
-        }
-    });
+    
+    
+    
 </script>
 @endsection

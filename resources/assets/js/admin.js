@@ -49,11 +49,4 @@ $(document).ready(function () {
 
     });
     
-    
-    /*** FILEMANAGER ***/
-    
-    $('.lfm').each(function(){
-        $(this).filemanager('image');
-    });
-    
 });

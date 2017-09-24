@@ -3,7 +3,6 @@
 @section('head')
 @parent
 <link rel="stylesheet" href="{{ asset('js/lib/jquery-colorbox/css/colorbox.css') }}">
-<script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
 @endsection
 
 @section('content')
@@ -59,8 +58,13 @@
                     !!}
                 </div>
                 <div class="form-group">
-                    <label for="feature_image">Feature Image</label>
-                    <input type="text" id="feature_image" name="feature_image" value="">
+                    <strong>Image:</strong>
+                    <!--<input type="text" id="feature_image" name="feature_image" value="">-->
+                    {!! Form::hidden('feature_image', $productImageRelative, [
+                        'id' => 'feature_image',
+                        'class' => 'form-control'
+                        ])
+                    !!}
                     <a href="" class="popup_selector" data-inputid="feature_image">Select Image</a>
                 </div>    
                 <div class="form-group">
@@ -81,28 +85,7 @@
 <script src="{{ asset('packages/barryvdh/elfinder/js/standalonepopup.min.js') }}"></script>
 <script>
     
-    $(function(){
-        parent.$.colorbox.resize({
-            innerWidth:$('body').width(),
-            innerHeight:$('body').height()
-        });
-    });
     
-    new Vue({
-        el: '.content',
-        data: {
-            imgExists: ""
-        },
-        mounted() {
-            this.imgExists = this.$refs.holder.src;
-        },
-        methods: {
-            removeImg() {
-                this.imgExists = '';
-                this.$refs.holder.src = '';
-                this.$refs.imageInput.value = '';
-            }
-        }
-    });
+    
 </script>
 @endsection

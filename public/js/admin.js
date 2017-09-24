@@ -115,12 +115,6 @@ $(document).ready(function () {
             form.submit(); // If the user confirm, submit the form
         }
     });
-
-    /*** FILEMANAGER ***/
-
-    $('.lfm').each(function () {
-        $(this).filemanager('image');
-    });
 });
 
 /***/ })

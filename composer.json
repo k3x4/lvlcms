@@ -14,7 +14,6 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.5",
         "plank/laravel-mediable": "^2.5",
-        "unisharp/laravel-filemanager": "^1.8",
         "zizaco/entrust": "5.2.x-dev"
     },
     "require-dev": {
