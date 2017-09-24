@@ -16,13 +16,13 @@ class MediaConverter {
 
     public function __construct(Model $model) {
         $this->model = $model;
-        $this->disk = 'photos';
+        $this->disk = 'images';
         $this->tempFolder = 'temp';
     }
     
     public function manipulateImage($path){
         if($path){
-            $this->saveImage( env('APP_URL') . $path );
+            $this->saveImage($path);
         } else {
             $this->removeAll();
             $this->model->media()->delete();
@@ -43,6 +43,7 @@ class MediaConverter {
     }
     
     public function saveImage($path){
+        $path = env('APP_URL') . '/' . $this->disk . '/' . $path;
         if( ! $this->mediaExists($path) ){
             $this->generateSizes($path);
         }   
@@ -86,7 +87,7 @@ class MediaConverter {
 
         foreach ($modelMedia as $media) {
             $basename = basename($media->getUrl());
-            Storage::disk('photos')->delete('sizes/' . $basename);
+            Storage::disk($this->disk)->delete('sizes/' . $basename);
         }
     }
 
@@ -175,11 +176,11 @@ class MediaConverter {
         $this->model->attachMedia($media, $tag);
     }
 
-    private function saveImageToDisk($image, $filename, $disk = 'photos'){
+    private function saveImageToDisk($image, $filename, $disk = 'images'){
         Storage::disk($disk)->put($filename, (string) $image->encode());
     }
     
-    private function deleteImageFromDisk($filename, $disk = 'photos'){
+    private function deleteImageFromDisk($filename, $disk = 'images'){
         Storage::disk($disk)->delete($filename);
     }
 

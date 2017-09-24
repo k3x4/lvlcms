@@ -43,7 +43,7 @@
                             <span class="close" v-show="imgExists" @click="removeImg">&times;</span>
                         @endif
                         <img id="holder" ref="holder" style="max-height:100px;" :src='imgExists' />
-                    </div>    
+                    </div>
                     <span class="input-group-btn">
                         <a data-input="thumbnail" data-preview="holder" class="btn btn-primary lfm">
                             <i class="fa fa-picture-o"></i> Choose
@@ -59,13 +59,22 @@
                 </div>
                 <div class="form-group">
                     <strong>Image:</strong>
-                    <!--<input type="text" id="feature_image" name="feature_image" value="">-->
+                    <div class="img-wrap">
+                        @if ($productImage)
+                            <span class="close" v-show="imgExists" @click="removeImg">&times;</span>
+                        @endif
+                        <img id="holder" ref="holder" style="max-height:100px;" :src='imgExists' />
+                    </div>
                     {!! Form::hidden('feature_image', $productImageRelative, [
                         'id' => 'feature_image',
                         'class' => 'form-control'
                         ])
                     !!}
-                    <a href="" class="popup_selector" data-inputid="feature_image">Select Image</a>
+                    <span class="input-group-btn">
+                        <a href="" data-inputid="feature_image" class="btn btn-primary popup_selector">
+                            <i class="fa fa-picture-o"></i> Select Image
+                        </a>
+                    </span>
                 </div>    
                 <div class="form-group">
                     <strong>Description:</strong>

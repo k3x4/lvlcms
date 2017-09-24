@@ -11,7 +11,7 @@ return [
     /*
      * Filesystem disk to use if none is specified
      */
-    'default_disk' => 'photos',
+    'default_disk' => 'images',
 
     /*
      * Filesystems that can be used for media storage
@@ -19,7 +19,7 @@ return [
      * Uploader will throw an exception if a disk not in this list is selected
      */
     'allowed_disks' => [
-        'photos',
+        'images',
     ],
 
     /*

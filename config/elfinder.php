@@ -95,7 +95,7 @@ return array(
     |
     */
     'root_options' => array(
-
+        'uploadOverwrite' => false
     ),
 
 );

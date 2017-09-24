@@ -41,12 +41,10 @@ class ProductController extends Controller
         $this->validate($request, [
             'title' => 'required'
         ]);
-
-        $pathToFile = env('APP_URL') . $request->input('image');
         
-        $product = Product::create($request->except('image'));
+        $product = Product::create($request->except('feature_image'));
         $mediaConverter = new MediaConverter($product);
-        $mediaConverter->saveImage($request->input('image'));
+        $mediaConverter->saveImage($request->input('feature_image'));
 
         return redirect()->route('admin.products.index')
                         ->with('success','Product created successfully');
@@ -79,8 +77,8 @@ class ProductController extends Controller
         if($product->hasMedia('original')){
             $productImagePath = $product->getMedia('original')->first()->getUrl();
             $productImageName = basename($productImagePath);
-            $productImage = env('APP_URL') . '/photos/sizes/' . $productImageName;
-            $productImageRelative = '/photos/sizes/' . $productImageName;
+            $productImage = env('APP_URL') . '/images/sizes/' . $productImageName;
+            $productImageRelative = '/images/sizes/' . $productImageName;
         }   
         
         return view('admin.products.edit',compact('product', 'productImage', 'productImageRelative'));
@@ -99,13 +97,11 @@ class ProductController extends Controller
             'title' => 'required'
         ]);
 
-        $pathToFile = env('APP_URL') . $request->input('image');
-
         $product = Product::find($id);
-        $product->update($request->except('image'));
+        $product->update($request->except('feature_image'));
         
         $mediaConverter = new MediaConverter($product);
-        $mediaConverter->manipulateImage($request->input('image'));
+        $mediaConverter->manipulateImage($request->input('feature_image'));
 
         return redirect()->route('admin.products.index')
                         ->with('success','Product updated successfully');
