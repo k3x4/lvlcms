@@ -102,6 +102,29 @@ class PermissionsTableSeeder extends Seeder {
                 'name' => 'mediasize-delete',
                 'display_name' => 'Delete Media size',
                 'description' => 'Delete Media size'
+            ],
+            
+            
+            // MEDIA PERMISSIONS            
+            [
+                'name' => 'media-read',
+                'display_name' => 'Display Media',
+                'description' => 'Display Media'
+            ],
+            [
+                'name' => 'media-create',
+                'display_name' => 'Create Media',
+                'description' => 'Create New Media'
+            ],
+            [
+                'name' => 'media-edit',
+                'display_name' => 'Edit Media',
+                'description' => 'Edit Media'
+            ],
+            [
+                'name' => 'media-delete',
+                'display_name' => 'Delete Media',
+                'description' => 'Delete Media'
             ]
             
             

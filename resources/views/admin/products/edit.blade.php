@@ -3,23 +3,6 @@
 @section('head')
 @parent
 <link rel="stylesheet" href="{{ asset('js/lib/jquery-colorbox/css/colorbox.css') }}">
-
-        <!-- elFinder CSS (REQUIRED) -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('packages/barryvdh/elfinder/css/elfinder.min.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('packages/barryvdh/elfinder/css/theme.css') }}">
-        
-        <link rel="stylesheet" href="{{ asset('css/lib/elfinder/win10theme/css/theme.css') }}">
-        
-        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-
-        <!-- elFinder JS (REQUIRED) -->
-        <script src="{{ asset('packages/barryvdh/elfinder/js/elfinder.min.js') }}"></script>
-        
-
-            <!-- elFinder translation (OPTIONAL) -->
-            <script src="{{ asset('packages/barryvdh/elfinder/js/i18n/elfinder.el.js') }}"></script>
-
-
 @endsection
 
 @section('content')
@@ -96,7 +79,7 @@
                 <div class="form-group">
                     <strong>Description:</strong>
                     {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
-                    <div id="elfinder"></div>
+                    
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>
@@ -110,19 +93,4 @@
 @parent
 <script src="{{ asset('js/lib/jquery-colorbox/js/jquery.colorbox-min.js') }}"></script>
 <script src="{{ asset('packages/barryvdh/elfinder/js/standalonepopup.min.js') }}"></script>
-<script type="text/javascript">
-            $().ready(function() {
-                $('#elfinder').elfinder({
-                    // set your elFinder options here
-
-                        lang: 'el', // locale
-
-                    customData: { 
-                        _token: '{{ csrf_token() }}'
-                    },
-                    url : '{{ route("elfinder.connector") }}',  // connector URL
-                    soundPath: '{{ asset("packages/barryvdh/elfinder/sounds") }}'
-                });
-            });
-        </script>
 @endsection

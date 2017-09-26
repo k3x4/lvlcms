@@ -183,4 +183,13 @@ Route::group([
         'middleware' => ['permission:mediasize-delete']
         ]);
     
+    
+    //MEDIA
+    Route::get('admin/media', [
+        'as' => 'admin.media.index', 
+        'uses' => 'MediaController@index', 
+        'middleware' => ['permission:media-read|media-create|media-edit|media-delete']
+        ]);
+    
+    
 });

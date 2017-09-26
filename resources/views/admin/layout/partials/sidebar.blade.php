@@ -41,7 +41,6 @@
                 </a>
                 <ul class="treeview-menu">
                     <li{{ bs_active('admin/media') }}><a href="{{ url('admin/media') }}">All media</a></li>
-                    <li{{ bs_active('admin/media/upload') }}><a href="{{ url('admin/media/upload') }}">Upload Media</a></li>
                     <li{{ bs_active('admin/mediasizes*') }}>
                         <a href="{{ url('admin/mediasizes') }}"> <span>Media Sizes</span>
                             <span class="pull-right-container">
