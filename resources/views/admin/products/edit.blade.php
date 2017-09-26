@@ -39,35 +39,17 @@
                 <div class="form-group">
                     <strong>Image:</strong>
                     <div class="img-wrap">
-                        @if ($productImage)
-                            <span class="close" v-show="imgExists" @click="removeImg">&times;</span>
-                        @endif
-                        <img id="holder" ref="holder" style="max-height:100px;" :src='imgExists' />
-                    </div>
-                    <span class="input-group-btn">
-                        <a data-input="thumbnail" data-preview="holder" class="btn btn-primary lfm">
-                            <i class="fa fa-picture-o"></i> Choose
-                        </a>
-                    </span>
-                    {!! Form::hidden('image', $productImageRelative, [
-                        'placeholder' => 'File path',
-                        'id' => 'thumbnail',
-                        'class' => 'form-control',
-                        'ref' => 'imageInput'
-                        ])
-                    !!}
-                </div>
-                <div class="form-group">
-                    <strong>Image:</strong>
-                    <div class="img-wrap">
-                        @if ($productImage)
-                            <span class="close" v-show="imgExists" @click="removeImg">&times;</span>
-                        @endif
-                        <img id="holder" ref="holder" style="max-height:100px;" :src='imgExists' />
+                        <span v-if="imgPath.length" class="close" @click="imgPath = ''">&times;</span>
+                        @if ($productImage)                      
+                            <img src="{{ $productImage }}" id="holder" ref="holder" style="max-height:100px;" />
+                        @else
+                            <img v-if="imgPath.length" :src="'{{ url('images') }}' + '/' + imgPath" id="holder" ref="holder" style="max-height:100px;" />
+                        @endif 
                     </div>
                     {!! Form::hidden('feature_image', $productImageRelative, [
                         'id' => 'feature_image',
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'v-model' => 'imgPath'
                         ])
                     !!}
                     <span class="input-group-btn">
@@ -79,7 +61,6 @@
                 <div class="form-group">
                     <strong>Description:</strong>
                     {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
-                    
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>
@@ -92,5 +73,16 @@
 @section('footer_scripts')
 @parent
 <script src="{{ asset('js/lib/jquery-colorbox/js/jquery.colorbox-min.js') }}"></script>
-<script src="{{ asset('packages/barryvdh/elfinder/js/standalonepopup.min.js') }}"></script>
+<script src="{{ asset('packages/barryvdh/elfinder/js/standalonepopup.k3x4.js') }}"></script>
+<script>
+    new Vue({
+        el: '.content',
+        data: {
+            imgPath: ''
+        },
+        /*mounted: function () {
+            this.cropCheck = this.$refs.cropField.checked
+        }*/
+    });
+</script>
 @endsection
