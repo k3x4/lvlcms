@@ -8,10 +8,19 @@
 
 <script>
     export default {
-        data: {
-            input.name: null,
-            button.class: null,
-            anchor.class: null
+
+        props() {
+            input.name: {
+                required: true,
+                default: null,
+            },
+            button.class: {
+                default: null,
+            },
+            anchor.class: {
+                default: null,
+            }
         }
+
     }
 </script>

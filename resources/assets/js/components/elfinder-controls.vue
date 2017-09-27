@@ -7,17 +7,25 @@
 <script>
     export default {
         
-        data: {
-            name: null,
-            class: null,
-            value: null,
+        data() {
             imgPath: null;
         },
         
-        props: {
+        props() {
             preview: {
                 default: true
+            },
+            name: {
+                required: true,
+                default: null,
+            },
+            class: {
+                default: null,
+            },
+            value: {
+                default: null,
             }
         }
+
     }
 </script>
