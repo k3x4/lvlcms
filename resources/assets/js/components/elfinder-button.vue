@@ -1,6 +1,6 @@
 <template>
-    <span class="input-group-btn">
-        <a href="" data-inputid="feature_image" class="btn btn-primary popup_selector">
+    <span :class="button.class">
+        <a href="" :data-inputid="input.name" :class="'btn btn-primary ' + anchor.class">
             <i class="fa fa-picture-o"></i> Select Image
         </a>
     </span>
@@ -8,8 +8,10 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
+        data: {
+            input.name: null,
+            button.class: null,
+            anchor.class: null
         }
     }
 </script>
