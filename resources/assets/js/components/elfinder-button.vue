@@ -1,6 +1,6 @@
 <template>
-    <span :class="button.class">
-        <a href="" :data-inputid="input.name" :class="'btn btn-primary ' + anchor.class">
+    <span>
+        <a href="" :data-inputid="input" class="btn btn-primary popup_selector">
             <i class="fa fa-picture-o"></i> Select Image
         </a>
     </span>
@@ -9,16 +9,10 @@
 <script>
     export default {
 
-        props() {
-            input.name: {
+        props: {
+            input: {
                 required: true,
-                default: null,
-            },
-            button.class: {
-                default: null,
-            },
-            anchor.class: {
-                default: null,
+                default: '',
             }
         }
 

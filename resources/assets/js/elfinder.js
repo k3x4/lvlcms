@@ -8,9 +8,9 @@ window.Vue = require('vue');
 
 
 Vue.component('elfinder', require('./components/elfinder.vue'));
-Vue.component('elfinder-controls', require('./components/elfinder-controls.vue'));
 Vue.component('elfinder-preview', require('./components/elfinder-preview.vue'));
 Vue.component('elfinder-button', require('./components/elfinder-button.vue'));
+Vue.component('elfinder-controls', require('./components/elfinder-controls.vue'));
 
 const app = new Vue({
     el: '.content'

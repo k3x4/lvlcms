@@ -37,26 +37,11 @@
                     {!! Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
-                    <strong>Image:</strong>
-                    <div class="img-wrap">
-                        <span v-if="imgPath.length" class="close" @click="imgPath = ''">&times;</span>
-                        @if ($productImage)                      
-                            <img src="{{ $productImage }}" id="holder" ref="holder" style="max-height:100px;" />
-                        @else
-                            <img v-if="imgPath.length" :src="'{{ url('images') }}' + '/' + imgPath" id="holder" ref="holder" style="max-height:100px;" />
-                        @endif 
-                    </div>
-                    {!! Form::hidden('feature_image', $productImageRelative, [
-                        'id' => 'feature_image',
-                        'class' => 'form-control',
-                        'v-model' => 'imgPath'
-                        ])
-                    !!}
-                    <span class="input-group-btn">
-                        <a href="" data-inputid="feature_image" class="btn btn-primary popup_selector">
-                            <i class="fa fa-picture-o"></i> Select Image
-                        </a>
-                    </span>
+                    <elfinder-controls
+                        name="feature_image"
+                        exists="{{ $productImageRelative }}"
+                        base="{{ url('images') }}"
+                        ></elfinder-controls>
                 </div>    
                 <div class="form-group">
                     <strong>Description:</strong>
@@ -72,17 +57,15 @@
 
 @section('footer_scripts')
 @parent
+<script src="{{ asset('js/elfinder.js') }}"></script>
 <script src="{{ asset('js/lib/jquery-colorbox/js/jquery.colorbox-min.js') }}"></script>
 <script src="{{ asset('packages/barryvdh/elfinder/js/standalonepopup.k3x4.js') }}"></script>
 <script>
-    new Vue({
+    /*new Vue({
         el: '.content',
         data: {
             imgPath: ''
         },
-        /*mounted: function () {
-            this.cropCheck = this.$refs.cropField.checked
-        }*/
-    });
+    });*/
 </script>
 @endsection

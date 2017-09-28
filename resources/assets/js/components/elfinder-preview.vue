@@ -1,24 +1,30 @@
 <template>
     <div class="img-wrap">
-        <span v-if="imgPath.length" class="close" @click="imgPath = ''">&times;</span>
-        <img v-if="path.exists.length" :src="path.exists" id="holder" style="max-height:100px;" />
-        <img v-else :src="path.base + '/' + imgPath" id="holder" style="max-height:100px;" />
+        <span v-if="imgPath.length" class="close" @click="clearPath">&times;</span>
+        <img v-if="exists.length" :src="exists" id="holder" style="max-height:100px;" />
+        <img v-else :src="base + '/' + imgPath" id="holder" style="max-height:100px;" />
     </div>
 </template>
 
 <script>
     export default {
 
-        data() {
-            imgPath: null
+        props: {
+            imgPath: {
+                default: '',
+                required: true
+            },
+            exists: {
+                default: ''
+            },
+            base: {
+                default: ''
+            }
         },
 
-        props() {
-            path.exists: {
-                default: null
-            },
-            path.base: {
-                default: null
+        methods: {
+            clearPath: function() {
+                this.$emit('pathCleared');
             }
         }
 

@@ -1,29 +1,32 @@
 <template>
-    <elfinder-preview v-if="preview"></elfinder-preview>
-    <elfinder-button></elfinder-button>
-    <input :id="name" :class="class" type="hidden" :name="name" :value="value" v-model="imgPath"
+<div>
+    <elfinder-preview v-if="preview" :exists="exists" :base="base" :img-path="imgPath" @pathCleared="imgPath = ''"></elfinder-preview>
+    <elfinder-button :input="name"></elfinder-button>
+    <input :id="name" type="hidden" :name="name" :value="exists" v-model="imgPath" />
+</div>
 </template>
 
 <script>
     export default {
         
         data() {
-            imgPath: null;
+            return {
+                preview: true,
+                imgPath: ''
+            }
         },
-        
-        props() {
-            preview: {
-                default: true
-            },
+
+        props: {
             name: {
-                required: true,
-                default: null,
+                default: '',
+                required: true
             },
-            class: {
-                default: null,
+            exists: {
+                default: ''
             },
-            value: {
-                default: null,
+            base: {
+                default: '',
+                required: true
             }
         }
 
