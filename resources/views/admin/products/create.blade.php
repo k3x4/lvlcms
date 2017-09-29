@@ -1,10 +1,5 @@
 @extends('admin.layout.master')
 
-@section('head')
-@parent
-<link rel="stylesheet" href="{{ asset('js/lib/jquery-colorbox/css/colorbox.css') }}">
-@endsection
-
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-bottom">
@@ -37,14 +32,10 @@
                     {!! Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
-                    <strong>Image:</strong><br />
-                    <img id="holder" style="max-height:100px;margin-bottom:10px;">
-                    <span class="input-group-btn">
-                        <a data-input="thumbnail" data-preview="holder" class="btn btn-primary lfm">
-                            <i class="fa fa-picture-o"></i> Choose
-                        </a>
-                    </span>
-                    {!! Form::hidden('image', null, ['placeholder' => 'File path', 'id' => 'thumbnail', 'class' => 'form-control']) !!}
+                    <elfinder-controls
+                        name="feature_image"
+                        base="{{ url('images') }}"
+                        ></elfinder-controls>
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
@@ -60,11 +51,6 @@
 
 @section('footer_scripts')
 @parent
-<script src="{{ asset('js/lib/jquery-colorbox/js/jquery.colorbox-min.js') }}"></script>
-<script src="{{ asset('packages/barryvdh/elfinder/js/standalonepopup.min.js') }}"></script>
-<script>
-    
-    
-    
-</script>
+<script src="{{ asset('js/elfinder.js') }}"></script>
+<script src="{{ asset('js/standalonepopup.k3x4.js') }}"></script>
 @endsection

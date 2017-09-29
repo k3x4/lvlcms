@@ -31,13 +31,6 @@ class AssetsServiceProvider extends ServiceProvider
             base_path('node_modules') . '/jquery/dist/jquery.min.js' => public_path('js/lib/jquery/jquery.min.js'),
         ], 'public');
         
-        // JQUERY
-        $this->publishes([
-            base_path('node_modules') . '/jquery-colorbox/jquery.colorbox-min.js' => public_path('js/lib/jquery-colorbox/js/jquery.colorbox-min.js'),
-            base_path('node_modules') . '/jquery-colorbox/example1/colorbox.css' => public_path('js/lib/jquery-colorbox/css/colorbox.css'),
-            base_path('node_modules') . '/jquery-colorbox/example1/images' => public_path('js/lib/jquery-colorbox/css/images'),
-        ], 'public');
-        
         // TINYMCE
         $this->publishes([
             base_path('node_modules') . '/tinymce' => public_path('js/lib/tinymce'),

@@ -18,5 +18,6 @@ $(document).on('click','.popup_selector',function (event) {
 function processSelectedFile(filePath, requestingField) {
     var $elem = $('#' + requestingField);
     $elem.val(filePath);
-    $elem[0].dispatchEvent(new Event('input', { 'bubbles': true }));
+    $elem[0].dispatchEvent(new Event('input', { 'bubbles': true }))
+    /*$('#' + requestingField).attr('value', filePath).trigger('change');*/
 }

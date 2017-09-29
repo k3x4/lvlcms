@@ -1,10 +1,5 @@
 @extends('admin.layout.master')
 
-@section('head')
-@parent
-<link rel="stylesheet" href="{{ asset('js/lib/jquery-colorbox/css/colorbox.css') }}">
-@endsection
-
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-bottom">
@@ -42,7 +37,7 @@
                         exists="{{ $productImageRelative }}"
                         base="{{ url('images') }}"
                         ></elfinder-controls>
-                </div>    
+                </div>
                 <div class="form-group">
                     <strong>Description:</strong>
                     {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
@@ -58,14 +53,5 @@
 @section('footer_scripts')
 @parent
 <script src="{{ asset('js/elfinder.js') }}"></script>
-<script src="{{ asset('js/lib/jquery-colorbox/js/jquery.colorbox-min.js') }}"></script>
-<script src="{{ asset('packages/barryvdh/elfinder/js/standalonepopup.k3x4.js') }}"></script>
-<script>
-    /*new Vue({
-        el: '.content',
-        data: {
-            imgPath: ''
-        },
-    });*/
-</script>
+<script src="{{ asset('js/standalonepopup.k3x4.js') }}"></script>
 @endsection

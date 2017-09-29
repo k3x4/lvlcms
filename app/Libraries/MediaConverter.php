@@ -24,7 +24,7 @@ class MediaConverter {
         if($path){
             $this->saveImage($path);
         } else {
-            $this->removeAll();
+            $this->removeAll($this->model);
             $this->model->media()->delete();
         }
     }

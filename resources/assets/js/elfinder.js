@@ -6,6 +6,9 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+/* jquery-colorbox */
+require('../../../node_modules/jquery-colorbox/example1/colorbox.css');
+require('../../../node_modules/jquery-colorbox/jquery.colorbox-min.js');
 
 Vue.component('elfinder', require('./components/elfinder.vue'));
 Vue.component('elfinder-preview', require('./components/elfinder-preview.vue'));
