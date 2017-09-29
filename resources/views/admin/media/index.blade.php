@@ -43,10 +43,7 @@
 <script type="text/javascript">
             $().ready(function() {
                 $('#elfinder').elfinder({
-                    // set your elFinder options here
-
-                        lang: 'el', // locale
-
+                    lang: 'el',
                     customData: { 
                         _token: '{{ csrf_token() }}'
                     },

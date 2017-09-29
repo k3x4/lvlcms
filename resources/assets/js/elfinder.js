@@ -10,7 +10,6 @@ window.Vue = require('vue');
 require('../../../node_modules/jquery-colorbox/example1/colorbox.css');
 require('../../../node_modules/jquery-colorbox/jquery.colorbox-min.js');
 
-Vue.component('elfinder', require('./components/elfinder.vue'));
 Vue.component('elfinder-preview', require('./components/elfinder-preview.vue'));
 Vue.component('elfinder-button', require('./components/elfinder-button.vue'));
 Vue.component('elfinder-controls', require('./components/elfinder-controls.vue'));

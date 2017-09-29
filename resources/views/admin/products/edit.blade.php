@@ -32,6 +32,7 @@
                     {!! Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
+                    <strong>Image:</strong>
                     <elfinder-controls
                         name="feature_image"
                         exists="{{ $productImageRelative }}"
