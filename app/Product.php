@@ -11,4 +11,8 @@ class Product extends Model
     
     public $fillable = ['title','description'];
     
+    public function categories(){
+        return $this->hasMany('App\Category');
+    }
+    
 }
