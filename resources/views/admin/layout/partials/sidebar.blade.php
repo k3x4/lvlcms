@@ -66,6 +66,18 @@
                     <li{{ bs_active('admin/products/create') }}><a href="{{ url('admin/products/create') }}">Create product</a></li>
                 </ul>    
             </li>
+            
+            <li{{ bs_active('admin/categories*') }}>
+                <a href="#"><i class="fa fa-link"></i> <span>Categories</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li{{ bs_active('admin/categories') }}><a href="{{ url('admin/categories') }}">All categories</a></li>
+                    <li{{ bs_active('admin/categories/create') }}><a href="{{ url('admin/categories/create') }}">Create category</a></li>
+                </ul>    
+            </li>
                 
             <li{{ bs_active(['admin/users*', 'admin/roles*']) }}>
                 <a href="#"><i class="fa fa-link"></i> <span>Users</span>

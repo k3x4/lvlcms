@@ -125,6 +125,29 @@ class PermissionsTableSeeder extends Seeder {
                 'name' => 'media-delete',
                 'display_name' => 'Delete Media',
                 'description' => 'Delete Media'
+            ],
+            
+            
+            // CATEGORY PERMISSIONS            
+            [
+                'name' => 'category-read',
+                'display_name' => 'Display Category',
+                'description' => 'Display Category'
+            ],
+            [
+                'name' => 'category-create',
+                'display_name' => 'Create Category',
+                'description' => 'Create New Category'
+            ],
+            [
+                'name' => 'category-edit',
+                'display_name' => 'Edit Category',
+                'description' => 'Edit Category'
+            ],
+            [
+                'name' => 'category-delete',
+                'display_name' => 'Delete Category',
+                'description' => 'Delete Category'
             ]
             
             
