@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
+use DB;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,15 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $categories = Category::orderBy('id', 'DESC')->paginate(5);
+        
+        $categories = DB::table('categories')
+            ->leftJoin('categories as cat', 'categories.parent_id', '=', 'cat.id')
+            ->select('categories.*', 'cat.display_name as parent_display_name')
+            ->orderBy('id', 'DESC')
+            ->paginate(5);
+            //->get();
+        
+        //$categories = Category::orderBy('id', 'DESC')->paginate(5);
         return view('admin.categories.index', compact('categories'))
                         ->with('i', ($request->input('page', 1) - 1) * 5);
     }

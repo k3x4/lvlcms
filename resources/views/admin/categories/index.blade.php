@@ -29,6 +29,7 @@
                         <th>No</th>
                         <th>Name</th>
                         <th>Slug</th>
+                        <th>Parent</th>
                         <th>Description</th>
                         <th width="280px">Action</th>
                     </tr>
@@ -37,6 +38,7 @@
                         <td>{{ ++$i }}</td>
                         <td>{{ $category->display_name }}</td>
                         <td>{{ $category->name }}</td>
+                        <td>{{ $category->parent_display_name }}</td>
                         <td>{{ strip_tags($category->description) }}</td>
                         <td>
                             @permission('category-edit')
