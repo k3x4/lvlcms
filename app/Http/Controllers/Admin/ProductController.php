@@ -55,10 +55,7 @@ class ProductController extends Controller
         $mediaConverter = new MediaConverter($product);
         $mediaConverter->saveImage($request->input('feature_image'));
         
-        //foreach ($request->input('category') as $key => $value) {
-            $product->categories()->sync($request->input('category'));
-            //$product->attachPermission($value);
-        //}
+        $product->categories()->sync($request->input('category'));
 
         return redirect()->route('admin.products.index')
                         ->with('success','Product created successfully');

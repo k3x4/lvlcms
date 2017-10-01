@@ -36,6 +36,12 @@
                     <strong>Description:</strong>
                     {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
                 </div>
+                <div class="form-group">
+                    <strong>Parent:</strong>
+                    <br/>
+                    {{ Form::select('parent_id', $categories, null, ['placeholder' => 'Select...']) }}
+                    <br/>
+                </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>
             {!! Form::close() !!}
