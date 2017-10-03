@@ -89,18 +89,10 @@ class CategoryController extends Controller
         
         $categories = DB::table('categories')
             ->select('id', 'display_name')
-            ->whereNull('parent_id')
-            ->where('id', '!=', $id)
+            ->where('id', '!=', $id)    
             ->pluck('display_name', 'id')
             ->toArray();
 
-        /*$categories = DB::table('categories')
-            ->leftJoin('categories as cat', 'categories.id', '=', 'cat.id')
-            ->select('categories.id', 'categories.display_name')
-            ->where('cat.parent_id', '!=', $id)
-            ->pluck('categories.display_name', 'categories.id')
-            ->toArray();
-        */
         return view('admin.categories.edit',compact('category', 'categories'));
     }
 
